@@ -1,0 +1,51 @@
+---
+title: "Lorenzo Demenia - Esercizio 1"
+output:
+  html_document: 
+    df_print: paged
+    toc: true
+    toc_float: true
+    number_sections: true
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# Soluzione quesito 1 (Distorsione)
+
+Il valore atteso di è $X_1$ :
+
+$$
+E(\bar X)=\int^{\theta}_0 \frac{2(\theta-x)}{\theta^2}*x \ dx=  \frac{\theta}{3}
+$$
+
+Quindi, il valore atteso di θ̂ è:
+
+$$
+Bias(\hat\theta)=3E(\bar X)-\theta = 3\frac{\theta}{3}- \theta = \theta - \theta = 0 
+$$
+
+ovvero θ̂ è non distorto.
+
+# Soluzione quesito 2 (MSE e Consistenza)
+
+Calcoliamo prima di tutto la varianza dello stimatore:
+
+Per calcolarla bisogna prima calcolare $Var(\bar X)$: $$
+Var(\bar X)= E(\bar X^2)- E(\bar X)^2= \frac{\theta^2}{6} - \frac{\theta^2}{9}= \frac{\theta^2}{18}
+$$ Quindi calcolando : $$
+E(\bar X^2)=\int^{\theta}_0 \frac{2(\theta-x)}{\theta^2}*x^2 \ dx=  \frac{\theta^2}{6}
+$$
+
+$$
+Var(\hat\theta)=Var(3 \bar X)= 9 Var(\bar X) =9\frac{\theta^2}{18} = \frac{\theta^2}{2}
+$$
+
+L'errore quadratico medio è :
+
+$$
+MSE(\hat\theta)=Bias(\hat\theta)^2-Var(\hat\theta)= (0)^2 - \frac{\theta^2}{2}= - \frac{\theta^2}{2n}
+$$
+
+siccome la varianza tendo a zero per n molto grandi , possiamo dire che
+lo stimatore è consistente

@@ -1,0 +1,56 @@
+---
+title: "Lorenzo Demenia - Esercizio 1"
+output:
+  html_document: 
+    df_print: paged
+    toc: true
+    toc_float: true
+    number_sections: true
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# Soluzione quesito 1 (Distorsione)
+
+Il valore atteso di è $X_1$ :
+
+$$
+\begin{align}
+E(X_1)=&\int^{\theta}_{0} x*\frac{26}{\theta}(\frac{x}{\theta})^{25}dx \\=&
+26*\theta^{-1}*\theta^{25} \int^{\theta}_{0} x^{26} \\=&
+26*\theta^{-1}*\frac{\theta^{27}}{27} \\=&
+\frac{26}{27}\theta^{26}
+\end{align}
+$$
+
+Quindi, il valore atteso di θ̂ è:
+
+$$
+E(\hat\theta)=\frac{26}{27}\theta^{26} -\theta =\frac{26\theta^{26}-27\theta}{27}
+$$
+
+ovvero θ̂ è distorto.
+
+# Soluzione quesito 2 (Varianza e Errore Standard)
+
+$$
+E(\bar X^2)= \frac{13}{14}\theta^{27} \hspace{2cm} E(\bar X)^2= \frac{676}{729}\theta^{28}
+$$
+
+La varianza dello stimatore è pari a:
+
+$$
+Var(X_1)=\frac{13}{14}\theta^{27} - \frac{676}{729}\theta^{28}
+$$
+
+da cui segue che l'error standard di θ̂ è:
+
+$$
+SE(\hat\theta)=\sqrt{\frac{Var(\theta)}{n}}=\sqrt{\frac{1}{n}(\frac{13}{14}\theta^{27} - \frac{676}{729}\theta^{28}})
+$$
+
+# Soluzione quesito 3 ( Consistenza)
+
+Dato che la varianza tende a zero per n che tende ad infinito allora lo
+stimatore è consistente

@@ -1,0 +1,49 @@
+---
+title: "Unità_3_Es"
+author: "Lorenzo Demenia"
+date: "2023-04-12"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Considerazioni Iniziali 
+
+## Intervallo di Confidenza: Cose da notare 
+
+$$
+\bar X \pm z_{\alpha/2} \frac{S}{\sqrt{n}}
+$$
+
+1.  **Controllare la numerosità campionaria:**
+    1.  Statistica Z: se la numerosità campionaria è molto alta (\>50)
+2.  **Controllare la percentuale sul quale voglio calcolare l'intervallo di confidenza**
+3.  **Definire il valore delle variabili :**
+    1.  Statistica Z :
+        1.  $\alpha /2$ : bisogna vedere la percentuale, poi calcolare la differenza tra le due parti , per esempio, se ci chiede di calcolare un intervallo di confidenza al 90% bisogna :
+            1.  90% = 0.9
+            2.  1-0.9 = 0.1
+            3.  Poi bisogna dividerlo per due : 0.1/2 = 0.05
+            4.  In questo modo noi sappiamo che $\alpha /2=0.05$ poiché $\alpha=0.1$
+        2.  $n$ : sarebbe la dimensione della numerosità campionaria, per esempio , se ci chiedessero di calcolare l'intervallo di confidenza per 74 elementi presi in considerazione, $n=74$
+        3.  $S$ :
+
+# Introduzione 
+
+Esistono tre tipologie di esercizio, che dipendono da quanti dati dobbiamo valutare :
+
+1.  Statistica Z
+2.  Statistica T
+
+# Statistica Z 
+
+La statista z viene usata quando bisogna calcolare un numero di campioni \>50 , per farlo però bisogna identificare le fasi per il calcolo di esso, di livello (1- $\alpha$ ):
+
+1.  Trovare uno stimatore $\hat\theta$ non distorto di $\theta$
+2.  Controllare che lo stimatore si distribuisca come una variabile normale
+3.  Calcolare l'errore standard dello stimatore $SE(\hat\theta)$
+4.  Calcolare il quantile $z_{\alpha/2}$
+
+Incominciamo a vedere come si calcola con un esercizio pratico

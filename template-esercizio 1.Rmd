@@ -1,0 +1,72 @@
+---
+title: "Soluzione esercizio 1"
+subtitle: "Prova intermedia 4 Aprile 2023"
+author: "Lorenzo Demenia"
+output:
+  html_document: default
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+### [1] soluzione prima domanda
+
+Il valore atteso è $$E(X)=\int_{0}^{0}xf(x;\theta)=\int_{0}{0}$$
+$$E(X)=\frac{}{}$$.
+
+Quindi lo stimatore con il metodo dei momenti si ottiene da
+$\bar X = E(X)$ trovando che esso è pari a: $$
+\hat \theta = 
+$$ e la corrispondente stima vale
+
+```{r, error = TRUE}
+media <-
+theta_m <- 
+theta_m
+```
+
+### [2] soluzione seconda domanda
+
+La log-verosomiglianza è: $$
+\ell(\theta)=\sum_{i=1}^n ()
+$$ ottenendo $$
+\frac{1}{1}\sum_{i=1}^n
+$$ La derivata prima (funzione punteggio) è: $$
+\ell'(\theta)=\sum_{i=1}^n
+$$ Per trovare il punto critico risolvo l'equazione di verosimiglianza
+$\ell'(\theta) = 0$ ossia: $$
+\sum_{i=1}^n\frac{1}{1}=0
+$$ ottenendo la stima di massima verosimiglianza pari a: $$
+\hat \theta =\frac{1}{1}
+$$
+
+che è lo stimatore di massima verosimiglianza in quanto la derivata
+seconda della log-verosimiglianza $$
+\ell^{''}(\theta)=\frac{1}{1}
+$$ è negativa **[ovunque quindi anche]** quando calcolata in
+$\hat \theta$.
+
+Con i dati osservati si ottiene la stima di massima verosimiglianza:
+
+```{r, error = TRUE}
+SumlogX_i <- 
+n <- 
+theta_l <-  
+theta_l
+```
+
+### [3] soluzione terza domanda
+
+L'informazione osservata è $J(\theta) = -\ell^{''}(\theta)$ cioè:
+
+```{r, error = TRUE}
+j <- 
+j
+```
+
+Quindi la stima dell'errore standard della stima di massima
+verosimiglianza di $\theta$ è
+
+```{r, error = TRUE}
+1 / sqrt(j)
+```

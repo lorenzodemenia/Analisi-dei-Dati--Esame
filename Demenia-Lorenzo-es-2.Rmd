@@ -1,0 +1,48 @@
+---
+title: "Lorenzo Demenia - Esercizio 2"
+output:
+  html_document: 
+    df_print: paged
+    toc: true
+    toc_float: true
+    number_sections: true
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# Soluzione quesito 1 (Metodo della Verosimiglianza )
+
+La funzione di log-verosimiglianza per $\theta$ è, a meno di termini
+costanti, pari a , con n=52$$
+\ell(\theta) = \sum^n_{i=1} \ln(\theta(1-\theta)^x)= n \ln \theta+\sum^n_{i=1} x_i \ln(1-\theta) .
+$$ La corrispondente funzione punteggio è $$
+\ell'(\theta) = \frac{n}{\theta}+\sum^n_{i=1} \frac{x_i}{1-\theta}= \frac{52}{\theta}-\frac{21}{1-\theta}.
+$$ Risolvendo l'equazione di verosimiglianza troviamo il punto critico
+$$
+\hat \theta=\frac{52}{31},
+$$ che coincide con la stima di massima verosimiglianza poiché $$
+\ell^{''}(\theta)= -\frac{52}{\theta^2}- \frac{21}{(1-\theta)^2} <0, 
+$$ per qualsiasi valore di $\theta$.
+
+[3] L'informazione osservata è
+
+```{r, error = TRUE}
+ theta <- 52/31
+j <- -52/(theta)^2 - (21/(1-theta)^2)
+j
+```
+
+Quindi, l'errore standard stimato di $\hat \theta$ non si può fare
+perché j è un numero negativo :
+
+```{r, error = TRUE}
+1 / sqrt(j)
+```
+
+Quindi, l'errore standard stimato di $\log(\theta)$ è
+approssimativamente pari a
+
+```{r, error = TRUE}
+log(theta)
+```

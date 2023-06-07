@@ -1,0 +1,50 @@
+---
+title: "Soluzione esercizio 2"
+subtitle: "Prova intermedia 7 Aprile 2022"
+author: "Matteo Grazioso"
+output:
+  html_document: default
+---
+
+### [1] soluzione prima domanda
+Vista la numerosità campionaria **$=600$** considero un intervallo di confidenza con livello approssimato del **95%** con la statistica **Z**:
+
+$$
+\bar X \pm z_{\alpha/2} \sqrt{\frac{\sigma^2}{n}}
+$$
+
+```{r, error = TRUE}
+##controlla se è statistica T o Z
+p.hat <- 
+z <- qnorm(1 - ... / 2)
+n <-
+SE <- sqrt(p.hat / n)
+p.hat + c(-1, 1) * z * SE
+```
+Siccome l'intervallo.....
+
+### [2] soluzione seconda domanda
+Consideriamo un intervallo di confidenza per la per la differenza tra...  con un livello di confidenza approssimato del **95%** con la statistica **Z**:
+```{r, error = TRUE}
+p1.hat <- p.hat
+p1.hat
+
+n <- 
+n
+
+p2.hat <- 
+p2.hat
+
+m <- 
+m
+
+#z <- qnorm(1 - 0.05 / 2)
+#z
+
+diff.p <- p1.hat - p2.hat
+
+SE.diff <- sqrt(p1.hat / n + p2.hat / m) ##controlla formula
+diff.p + c(-1, 1) * z * SE.diff
+```
+
+Siccome l'intervallo di confidenza contiene ... , si può affermare che, ad un livello di confidenza approssimativamente del **95%**, c'è ....

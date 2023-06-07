@@ -1,0 +1,161 @@
+---
+title: "Lorenzo Demenia - Esercizio 1"
+output:
+  html_document: 
+    df_print: paged
+    toc: true
+    toc_float: true
+    number_sections: true
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# Soluzione quesito 1 (Distorsione)
+
+## Due stimatori:
+
+I valori attesi dei due stimatori sono:
+
+$$
+E(T_1)=\frac{}{}\theta \hspace{2cm} E(T_2)=\frac{}{}\theta
+$$
+
+Quindi, entrambi gli stimatori sono distorti:
+
+$$
+Bias(T_1)= \frac{}{}\theta \hspace{2cm} Bias(T_2)= \frac{}{}\theta
+$$
+
+## Uno Stimatore Discreto:
+
+Il valore atteso di è $X_1$ :
+
+$$
+E(X_1)= \frac{}{}\theta
+$$
+
+Quindi, il valore atteso di θ̂ è:
+
+$$
+Bias(\hat\theta)=
+$$
+
+ovvero θ̂ è non distorto.
+
+## Uno Stimatore Continuo:
+
+Il valore atteso di è $X_1$ :
+
+$$
+E(X_1)=\int^{0}_{0} dx= \frac{}{}\theta
+$$
+
+Quindi, il valore atteso di θ̂ è:
+
+$$
+E(\hat\theta)=
+$$
+
+ovvero θ̂ è non distorto.
+
+# Soluzione quesito 2 (Varianza e Errore Standard)
+
+## Due stimatori :
+
+Le varianze dei due stimatori sono:
+
+$$
+Var(T_1)= \frac{}{}\theta \hspace{2cm} Var(T_2)= \frac{}{}\theta
+$$
+
+da cui segue che l'error standard di θ̂ è:
+
+## Uno stimatore Discreto:
+
+Abbiamo che:
+
+$$
+E(X_1^2) = \frac{}{}\theta
+$$
+
+quindi, la varianza :
+
+$$
+Var(X_1)= \frac{}{}\theta
+$$
+
+da cui segue che l'error standard di θ̂ è:
+
+$$
+SE(\hat\theta)=\sqrt{Var(\theta)}=\sqrt{}
+$$
+
+## Uno stimatore Continuo:
+
+La varianza dello stimatore è pari a:
+
+$$
+Var(X_1)=\frac{}{}\theta
+$$
+
+da cui segue che l'error standard di θ̂ è:
+
+$$
+SE(\hat\theta)=\sqrt{Var(\theta)}=\sqrt{}
+$$
+
+# Soluzione quesito 3 (MSE e Consistenza)
+
+# Due stimatori :
+
+Gli errori quadratici medi dei due stimatori sono $$
+MSE(T_1)=\frac{}{} \theta^2+ \frac{}{}\theta, 
+\quad
+MSE(T_2)=\frac{\theta^2}{4} + \frac{14}{16}\theta. 
+$$ La differenza fra i due errori quadratici medi è $$
+MSE(T_2)-MSE(T_1) =\theta 
+$$ Siccome la differenza dei due errori quadratici medi è positiva per
+qualsiasi valore ammissibile di $\theta$, concludiamo che lo stimatore
+$T_1$ è preferibile.
+
+**CANCELLARE LE SEGUENTI RIGHE!**
+
+**Qualche comando LaTeX utile per scrivere le formule**
+
+Formule nel testo: $\sin(\pi x)$
+
+Formule su righe separate: $$
+\sin(\pi x)
+$$
+
+Momenti: $$
+\mu_k, E(X^k), M_k, m_k, \bar{X}, \bar{x}, \sigma^2, Var(X), S^2
+$$ Stimatori e stime: $$
+\hat \theta,  \hat \mu, \hat \sigma^2, \hat \lambda 
+$$ $$
+\tilde \theta, \tilde \mu, \tilde \sigma^2, \tilde \lambda
+$$ Verosimiglianza: $$
+L(\theta), \ell(\theta), \ell'(\theta), \ell''(\theta)
+$$ Frazioni: $$
+\frac{1}{\sqrt{2}} X_i, \frac{X_i}{Y_i}
+$$
+
+Sommatorie: $$
+\sum_{i=1}^n X_i, \sum_{i=1}^n \log X_i, \sum_{i=1}^n \sqrt{X_i}, \sum_{i=1}^n \frac{X_i}{Y_i}
+$$ Integrali: $$
+\int_{0}^1 f(x) dx, \int_{a}^{\infty} f(x) dx, \int_{-\infty}^{\infty} f(x) dx
+$$
+
+**Come scrivere i comandi R**
+
+```{r, error = TRUE}
+2 * 3 / log(1.2)
+sin(2 * pi / 20)
+a <- 2 * c(1, 2)
+a
+z <- qnorm(0.95)
+z
+t <- qt(0.95, df = 12)
+t
+```

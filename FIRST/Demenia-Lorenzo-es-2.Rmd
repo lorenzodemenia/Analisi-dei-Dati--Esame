@@ -1,0 +1,23 @@
+---
+title: "Lorenzo Demenia - Esercizio 2"
+output:
+  html_document: 
+    df_print: paged
+    toc: true
+    toc_float: true
+    number_sections: true
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# Soluzione quesito 2 (Metodo della Verosimiglianza )
+
+La funzione di log-verosimiglianza per $\theta$ è, a meno di termini
+costanti, pari a (n=242)$$
+\ell(\theta) =\sum^n_{i=1} ln(\theta^{-2}(x-\frac{47}{10})^{-(\frac{x-\frac{47}{10}}{\theta})}) \\=-2\ln\theta+\ln10\theta \sum \ln(10x-47)+ln(x-47) 
+$$
+
+La corrispondente funzione punteggio è $$
+\ell'(\theta) = \frac{-2}{\theta}+\frac{1}{10}\theta \sum \frac{1}{10x-47}+\frac{1}{x-47} 
+$$

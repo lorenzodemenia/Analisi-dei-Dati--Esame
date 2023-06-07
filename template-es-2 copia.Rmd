@@ -1,0 +1,100 @@
+---
+title: "Lorenzo Demenia - Esercizio 2"
+output:
+  html_document: 
+    df_print: paged
+    toc: true
+    toc_float: true
+    number_sections: true
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# Soluzione quesito 1 (Metodo dei Momenti)
+
+Il valore atteso di X è nullo, quindi lo stimatore con il metodo dei
+momenti è calcolato con il momento di ordine due $$
+E(X_1^2)=\theta
+$$ Quindi, la stima con il metodo dei momenti è $$
+\hat \theta=\frac{}{}.
+$$ Con i dati a disposizione otteniamo la stima:
+
+```{r, error = TRUE}
+
+```
+
+# Soluzione quesito 2 (Metodo della Verosimiglianza )
+
+La funzione di log-verosimiglianza per $\theta$ è, a meno di termini
+costanti, pari a $$
+\ell(\theta) = .
+$$ La corrispondente funzione punteggio è $$
+\ell'(\theta) = \frac{}{}\theta.
+$$ Risolvendo l'equazione di verosimiglianza troviamo il punto critico
+$$
+\hat \theta=\frac{}{},
+$$ che coincide con la stima di massima verosimiglianza poiché $$
+\ell^{''}(\theta)= <0, 
+$$ per qualsiasi valore di $\theta$. La stima di massima verosimiglianza
+è uguale alla stima con il metodo dei momenti.
+
+[3] L'informazione osservata è
+
+```{r, error = TRUE}
+j <- 
+j
+```
+
+Quindi, l'errore standard stimato di $\hat \theta$ è approssimativamente
+pari a
+
+```{r, error = TRUE}
+1 / sqrt(j)
+```
+
+# Soluzione quesito 3
+
+scrivere qui la soluzione del terzo quesito (sempre che ve ne siano tre,
+altrimenti cancellare questa sezione)
+
+# **CANCELLARE LE SEGUENTI RIGHE!**
+
+**Qualche comando LaTeX utile per scrivere le formule**
+
+Formule nel testo: $\sin(\pi x)$
+
+Formule su righe separate: $$
+\sin(\pi x)
+$$
+
+Momenti: $$
+\mu_k, E(X^k), M_k, m_k, \bar{X}, \bar{x}, \sigma^2, Var(X), S^2
+$$ Stimatori e stime: $$
+\hat \theta,  \hat \mu, \hat \sigma^2, \hat \lambda 
+$$ $$
+\tilde \theta, \tilde \mu, \tilde \sigma^2, \tilde \lambda
+$$ Verosimiglianza: $$
+L(\theta), \ell(\theta), \ell'(\theta), \ell''(\theta)
+$$ Frazioni: $$
+\frac{1}{\sqrt{2}} X_i, \frac{X_i}{Y_i}
+$$
+
+Sommatorie: $$
+\sum_{i=1}^n X_i, \sum_{i=1}^n \log X_i, \sum_{i=1}^n \sqrt{X_i}, \sum_{i=1}^n \frac{X_i}{Y_i}
+$$ Integrali: $$
+\int_{0}^1 f(x) dx, \int_{a}^{\infty} f(x) dx, \int_{-\infty}^{\infty} f(x) dx
+$$
+
+**Come scrivere i comandi R**
+
+```{r, error = TRUE}
+2 * 3 / log(1.2)
+sin(2 * pi / 20)
+a <- 2 * c(1, 2)
+a
+z <- qnorm(0.95)
+z
+t <- qt(0.95, df = 12)
+t
+```
