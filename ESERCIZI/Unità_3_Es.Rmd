@@ -19,7 +19,7 @@ $$
 $$
 
 1.  **Controllare la numerosità campionaria:**
-    1.  Statistica Z: se la numerosità campionaria è molto alta (\>50)
+    1.  Statistica Z: se la numerosità campionaria è molto alta (\>30)
 2.  **Controllare la percentuale sul quale voglio calcolare l'intervallo di confidenza**
 3.  **Definire il valore delle variabili :**
     1.  Statistica Z :
@@ -31,6 +31,12 @@ $$
         2.  $n$ : sarebbe la dimensione della numerosità campionaria, per esempio , se ci chiedessero di calcolare l'intervallo di confidenza per 74 elementi presi in considerazione, $n=74$
         3.  $S$ :
 
+In generale, indipendentemente dalla statistica utilizzata, bisogna prima seguire i primi 2 passaggi
+ma che variano a seconda della statistica 
+
+Oltra a definire la statistica, nella maggior parte dei casi bisogna capire se ci chiede di fare la differenza 
+in tal caso bisogna applicare la formula designata a seconda della statistica 
+
 # Introduzione 
 
 Esistono tre tipologie di esercizio, che dipendono da quanti dati dobbiamo valutare :
@@ -40,7 +46,7 @@ Esistono tre tipologie di esercizio, che dipendono da quanti dati dobbiamo valut
 
 # Statistica Z 
 
-La statista T viene usata quando bisogna calcolare un numero di campioni \>50 , per farlo però bisogna identificare le fasi per il calcolo di esso, di livello (1- $\alpha$ ):
+La statista T viene usata quando bisogna calcolare un numero di campioni maggiori di 30 , per farlo però bisogna identificare le fasi per il calcolo di esso, di livello (1- $\alpha$ ):
 
 1.  Trovare uno stimatore $\hat\theta$ non distorto di $\theta$
 2.  Controllare che lo stimatore si distribuisca come una variabile normale
@@ -50,5 +56,11 @@ La statista T viene usata quando bisogna calcolare un numero di campioni \>50 , 
 Incominciamo a vedere come si calcola con un esercizio pratico
 
 # Statistica T 
-La statistica T viene usata quando bisogna calcolare un numero di campioni <50 , per farlo però bisogna identificare le fasi per il calcolo di esso, di livello (n-1) gradi di libertà:
-1. 
+La statistica T viene usata quando bisogna calcolare un numero di campioni minori di 30 , 
+per farlo però bisogna identificare le fasi per il calcolo di esso, di livello (n-1) gradi di libertà:
+1.  Trovare uno stimatore $\hat\theta$ non distorto di $\theta$
+2.  Controllare che lo stimatore si distribuisca come una variabile normale
+3.  Calcolare l'errore standard dello stimatore $SE(\hat\theta)$
+4.  Calcolare il quantile $t_{\alpha/2}$
+
+
