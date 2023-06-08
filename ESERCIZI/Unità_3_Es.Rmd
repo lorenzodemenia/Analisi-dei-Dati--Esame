@@ -1,66 +1,132 @@
 ---
-title: "Unità_3_Es"
+title: "Unità 3 Esercizi"
 author: "Lorenzo Demenia"
 date: "2023-04-12"
 output: html_document
 ---
-install.packages("languageserver")
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Considerazioni Iniziali 
-
-## Intervallo di Confidenza: Cose da notare 
-
-$$
-\bar X \pm z_{\alpha/2} \frac{S}{\sqrt{n}}
-$$
-
-1.  **Controllare la numerosità campionaria:**
-    1.  Statistica Z: se la numerosità campionaria è molto alta (\>30)
-2.  **Controllare la percentuale sul quale voglio calcolare l'intervallo di confidenza**
-3.  **Definire il valore delle variabili :**
-    1.  Statistica Z :
-        1.  $\alpha /2$ : bisogna vedere la percentuale, poi calcolare la differenza tra le due parti , per esempio, se ci chiede di calcolare un intervallo di confidenza al 90% bisogna :
-            1.  90% = 0.9
-            2.  1-0.9 = 0.1
-            3.  Poi bisogna dividerlo per due : 0.1/2 = 0.05
-            4.  In questo modo noi sappiamo che $\alpha /2=0.05$ poiché $\alpha=0.1$
-        2.  $n$ : sarebbe la dimensione della numerosità campionaria, per esempio , se ci chiedessero di calcolare l'intervallo di confidenza per 74 elementi presi in considerazione, $n=74$
-        3.  $S$ :
-
-In generale, indipendentemente dalla statistica utilizzata, bisogna prima seguire i primi 2 passaggi
-ma che variano a seconda della statistica 
-
-Oltra a definire la statistica, nella maggior parte dei casi bisogna capire se ci chiede di fare la differenza 
-in tal caso bisogna applicare la formula designata a seconda della statistica 
-
 # Introduzione 
 
 Esistono tre tipologie di esercizio, che dipendono da quanti dati dobbiamo valutare :
 
-1.  Statistica Z
-2.  Statistica T
+1.  Statistica Z ($n>30$)
+2.  Statistica T ($n\le30$)
 
 # Statistica Z 
 
-La statista T viene usata quando bisogna calcolare un numero di campioni maggiori di 30 , per farlo però bisogna identificare le fasi per il calcolo di esso, di livello (1- $\alpha$ ):
+## 2) Uno Stimatore :
 
-1.  Trovare uno stimatore $\hat\theta$ non distorto di $\theta$
-2.  Controllare che lo stimatore si distribuisca come una variabile normale
+La statista Z viene usata quando bisogna calcolare un numero di campioni maggiori di 30 , per farlo però bisogna identificare le fasi per il calcolo di esso, di livello (1- $\alpha$ ):
+
+1.  Trovare uno stimatore $\hat\theta$ non distorto di $\theta$, $E(\hat\theta)=\theta$
+2.  Controllare che lo stimatore si distribuisca come una variabile normale $N\{\theta, Var(\hat\theta)\}$
 3.  Calcolare l'errore standard dello stimatore $SE(\hat\theta)$
 4.  Calcolare il quantile $z_{\alpha/2}$
 
-Incominciamo a vedere come si calcola con un esercizio pratico
+
+
+### 1.1)  Stimatore :
+
+Per capire se lo stimatore è non distorto si può procedere in due modi: 
+
+1. Calcolare il $Bias(\hat\theta)$, quindi usare la formual vista nella prima unità e vedere se è ugale a zero.
+
+$$
+Bias(\hat\theta)=E(\hat\theta)-\theta
+$$
+
+2. Dedurlo dalla consegna, visto che, dicendoci la distribuzione, si può dedurre che sia o meno distorto, da questo si deduce anche se si distribuisce come una variabile normale 
+
+### 1.2) $SE(\hat\theta)$ e $z_{\alpha/2}$:
+Per calcolare l'errore standard, bisogna conoscere: 
+
+1. La varianza, siccome ci servirà per risolvere la formula, se non la dovessimo avere, basterebbe applicare la formula data
+2. Ci serve sapere anche $n$, dato che stiamo lavorando con un numero ben definito di elementi, bastà controllare nel testo la sua presenza 
+   
+Bene adesso applichiamo la formula ma in R, dato che si potrà usare il pc: 
+
+1. Prima di tutto ci trovaimo la z, quindi : 
+   1. $\alpha /2$ : bisogna vedere la percentuale, poi calcolare la differenza tra le due parti , per esempio, se ci chiede di calcolare un intervallo di confidenza al 90% bisogna :
+   2. 90% = 0.9
+   3. 1-0.9 = 0.1
+   4. Poi bisogna dividerlo per due : 0.1 / 2 = 0.05
+   5. In questo modo noi sappiamo che $\alpha /2=0.05$ poiché $\alpha=0.1$
+    ```{r}
+        z <- qnorm(.95)
+        z
+    ```
+
+2. trovare gli estremi dell'intervallo e valutare per (-1,1), in questo caso usiamo la c(-1,1) per fare questo, poi moltiplicare per lo scarto quadratico medio ($\sigma$): 
+
+    ```{r}
+        61.3 + c(-1, 1) * z * 7.8
+    ```
+
+    In questo caso:
+
+    1. $\sigma= 7.8$, lo scarto quadratico medio 
+    2. $s = 61.3$, che sarebbe la media.
+
+3. In fine andiamo a dividere il tutto per la $\sqrt{n}$
+
+    ```{r}
+        61.3 + c(-1, 1) * z * 7.8 / sqrt(74)
+    ```
+
+## 2) Confronto fra due Stimatori:
+
+In pratica ti chiede di trovare, $\mu_x$ che è la media del primo stimatore, $\mu_y$ che è la media del secondo stimatore :
+    $$
+    \theta = \mu_x -\mu_y
+    $$
+Quindi ci chiede di calcolare la stima di $\theta$ con i dati osservati, 
+
+$$
+\hat\theta = \bar x - \bar y 
+$$
+Siccome l'intervallo è sempre lo stesso, la $z_{\alpha/2}$ non varia. 
+$$
+\hat\theta \pm z_{\alpha/2} \hat{SE}(\hat\theta)
+$$
+In fine bisogna solo calcolare l'errore standard stimato di $\hat\theta$ 
+$$
+\hat{SE}(\hat\theta)=\sqrt{\frac{\sigma_x^2}{n_x}+ \frac{\sigma_y^2}{n_y}}
+$$
+```{r}
+    (61.3 - 59.7) + c(-1, 1) * z * sqrt(7.8^2 / 74 + 8.1^2 / 85)
+```
+
+In questo caso, prendendo anche i valori visti precedentemente: 
+
+- $s_x = 61.3$, la media del primo stimatore 
+- $s_y = 59.7$, la media del secondo stimatore 
+- $z=qnorm(.95)$, che sarebbe $\alpha/2$ che è uguale per tutti e due 
+- $\sigma_x= 7.8$, lo scarto quadratico medio del primo stimatore 
+- $\sigma_y= 8.2$, lo scarto quadratico medio del secondo stimatore  
+- $n_x = 74$, la dimensione campionaria del primo caso  
+- $n_y = 85$, la dimensione campionaria del secondo caso 
+
+In questo modo possimao capire la differena fra i due stimatori 
+
+
 
 # Statistica T 
+
 La statistica T viene usata quando bisogna calcolare un numero di campioni minori di 30 , 
 per farlo però bisogna identificare le fasi per il calcolo di esso, di livello (n-1) gradi di libertà:
+
 1.  Trovare uno stimatore $\hat\theta$ non distorto di $\theta$
 2.  Controllare che lo stimatore si distribuisca come una variabile normale
 3.  Calcolare l'errore standard dello stimatore $SE(\hat\theta)$
 4.  Calcolare il quantile $t_{\alpha/2}$
+
+
+### 1.1)  Stimatore :
+
 
 
