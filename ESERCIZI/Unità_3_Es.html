@@ -369,7 +369,7 @@ dobbiamo valutare :</p>
 <div id="statistica-z" class="section level1">
 <h1>Statistica Z</h1>
 <div id="uno-stimatore" class="section level2">
-<h2>2) Uno Stimatore :</h2>
+<h2>1) Uno Stimatore :</h2>
 <p>La statista Z viene usata quando bisogna calcolare un numero di
 campioni maggiori di 30 , per farlo però bisogna identificare le fasi
 per il calcolo di esso, di livello (1- <span class="math inline">\(\alpha\)</span> ):</p>
@@ -436,7 +436,7 @@ scarto quadratico medio (<span class="math inline">\(\sigma\)</span>):</p>
 <ol style="list-style-type: decimal">
 <li><span class="math inline">\(\sigma= 7.8\)</span>, lo scarto
 quadratico medio</li>
-<li><span class="math inline">\(s = 61.3\)</span>, che sarebbe la
+<li><span class="math inline">\(\bar x = 61.3\)</span>, che sarebbe la
 media.</li>
 </ol></li>
 <li><p>In fine andiamo a dividere il tutto per la <span class="math inline">\(\sqrt{n}\)</span></p>
@@ -447,10 +447,6 @@ media.</li>
 </div>
 <div id="confronto-fra-due-stimatori" class="section level2">
 <h2>2) Confronto fra due Stimatori:</h2>
-<p>Se dovessero chiedere di fare un confronto / differenza fra due
-stimatori, bisogna priam di tutto definire che confronto è:</p>
-<div id="differenza" class="section level3">
-<h3>2.1) Differenza :</h3>
 <p>In pratica ti chiede di trovare, <span class="math inline">\(\mu_x\)</span> che è la media del primo stimatore,
 <span class="math inline">\(\mu_y\)</span> che è la media del secondo
 stimatore : <span class="math display">\[
@@ -489,7 +485,6 @@ campionaria del secondo caso</li>
 <p>In questo modo possimao capire la differena fra i due stimatori</p>
 </div>
 </div>
-</div>
 <div id="statistica-t" class="section level1">
 <h1>Statistica T</h1>
 <p>La statistica T viene usata quando bisogna calcolare un numero di
@@ -502,6 +497,50 @@ normale</li>
 <li>Calcolare l’errore standard dello stimatore <span class="math inline">\(SE(\hat\theta)\)</span></li>
 <li>Calcolare il quantile <span class="math inline">\(t_{\alpha/2}\)</span></li>
 </ol>
+<div id="stimatore-1" class="section level3">
+<h3>1.1) Stimatore :</h3>
+<p>In questo caso incominciamo a vedere i dati raccolti dall’analisi
+preliminare, per esempio se ti specificano dei dati, come per esempio :
+<span class="math display">\[
+9, 9, 6, 10, 3, 9, 4, 5, 3, 7
+\]</span></p>
+<p>dobbiamo soltanto andare a calcolare:</p>
+<ol style="list-style-type: decimal">
+<li><p>La media dello stimatore, <span class="math inline">\(\bar
+x\)</span>:</p>
+<pre class="r"><code>    x &lt;- c(9, 9, 6, 10, 3, 9, 4, 5, 3, 7)
+    mean(x)</code></pre>
+<pre><code>## [1] 6.5</code></pre></li>
+<li><p>Lo scarto quadratico medio, <span class="math inline">\(\sigma\)</span>:</p>
+<pre class="r"><code>    sd(x)</code></pre>
+<pre><code>## [1] 2.677063</code></pre></li>
+<li><p>Il quantile <span class="math inline">\(t_{\alpha/2}\)</span>:</p>
+<pre class="r"><code>    t &lt;- qt(.995, df = 9)
+    t</code></pre>
+<pre><code>## [1] 3.249836</code></pre></li>
+<li><p>In fine uniamo il tutto per calcolare l’intervallo di confidenza
+di livello 99%:</p>
+<pre class="r"><code>    mean(x) + c(-1, 1) * t * sd(x) / sqrt(10)</code></pre>
+<pre><code>## [1] 3.748814 9.251186</code></pre></li>
+</ol>
+</div>
+<div id="margine-di-errore" class="section level3">
+<h3>1.2) Margine di Errore:</h3>
+<p>Se dovessero chiedere di calcolare il margine di errore per cui
+l’intervallo no sia più grande di <span class="math inline">\(n\)</span>, bisognerebbe vedere che la numerosità
+campionaria soddisfi la disuguaglianza: <span class="math display">\[
+n \ge (\frac{z_{\alpha/2}\sigma}{n})^2
+\]</span></p>
+<p>In questo caso ci viene richiesto per <span class="math inline">\(n=0.5\)</span> e conosciamo :</p>
+<ul>
+<li><span class="math inline">\(\alpha/2= 0.005\)</span></li>
+<li><span class="math inline">\(\sigma\)</span>, il testo ci consiglia
+di usare <span class="math inline">\(s=2.68\)</span></li>
+</ul>
+<p>Quindi alla fine bisogna solo comporre :</p>
+<pre class="r"><code>        mean(x) + c(-1, 1) * t * sd(x) / sqrt(10)</code></pre>
+<pre><code>## [1] 3.748814 9.251186</code></pre>
+</div>
 </div>
 
 
