@@ -659,6 +659,60 @@ distribuisce <strong>esattamente</strong> come una variabile casuale
 </div>
 </div>
 </div>
+<div id="fissare-il-livello-di-significatività-di-alpha" class="section level1">
+<h1>3) Fissare il livello di Significatività di <span class="math inline">\(\alpha\)</span></h1>
+<p>I test con livello di significatività fissata che abbiamo visto fin
+ora ci portano solo a rifiutare o meno, ma non “misurano” l’evidenza a
+favore o contro l’ipotesi nulla.</p>
+<p>In questo caso possiamo usare due approcci diversi di apporccio alla
+verifica, basato sul <strong>Livello di Significatività
+osservato</strong>.</p>
+<p>Evita di fissare un livello di significatività in modo miusare
+l’ammontare di evidenza a favore delle ipotesi.</p>
+<p>Viene definito come <em>la probabilità di ottenere un valore della
+statista test uguale o più estremo di quello osservatos se l’ipotesi
+nulla fosse vera</em> si distiunge in due tipi:</p>
+<ol style="list-style-type: decimal">
+<li>Livello osservato <strong>Grande</strong>: vuol dire che quello che
+abbiamo osservato non era poi così estremo e quindi <strong>non</strong>
+possiamo <strong>rifiutare <span class="math inline">\(H_0\)</span></strong></li>
+<li>Livello osservato <strong>Piccolo</strong>: vuol dire che abbiamo
+osservato davvero l’estremo e quindi <strong>rifiutiamo <span class="math inline">\(H_0\)</span></strong></li>
+</ol>
+<div id="calcolo-del-livello-di-significatività-osservato" class="section level2">
+<h2>3.1) Calcolo del livello di Significatività Osservato</h2>
+<p>Il calcolo dipende da <span class="math inline">\(H_A\)</span> e
+dalla statista test, quello che vedremo quì sotto vale lo stesso
+principio sia per la statitica <span class="math inline">\(Z\)</span>
+che quella <span class="math inline">\(T\)</span>.</p>
+<p>Come detto prima, dobbiamo distinguere i tre casi di ipotesi
+alternativa:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Unilaterale Destra</strong> (<span class="math inline">\(H_A: \theta &gt; \theta_0\)</span>): in questo
+caso si rifiuta <span class="math inline">\(H_0\)</span> per valori
+<strong>Troppo grandi</strong>, quindi il livello di significatività
+osservato è la probabilità di osservare qualcosa tanto o più estremo di
+<span class="math inline">\(z\)</span>, ovvero: <span class="math display">\[
+                                                     p= Pr(Z \ge z) = 1-
+\Phi(z)
+                                                 \]</span></li>
+<li><strong>Unilaterale Sinistra</strong> (<span class="math inline">\(H_A: \theta &lt; \theta_0\)</span>): si rifiuta
+<span class="math inline">\(H_0\)</span> per valori <strong>Troppo
+Piccoli</strong> e il livello di significatività osservato è pari a:
+<span class="math display">\[
+                                                         p= Pr(Z \le z)
+= \Phi(z)
+                                                     \]</span></li>
+<li><strong>Bilaterale</strong> (<span class="math inline">\(H_A: \theta
+\not= \theta_0\)</span>): si rifiuta <span class="math inline">\(H_0\)</span> sia per valori <strong>Troppo
+Grandi</strong> che per valori <strong>Troppo Piccoli</strong>, in
+questo caso il livello di significatività osservato è: <span class="math display">\[
+                                                 p= Pr(Z &gt; |z|)+
+Pr(Z&lt;-|z|) = 2\{1-\Phi(|z|) \}
+                                             \]</span></li>
+</ol>
+</div>
+</div>
 
 
 
