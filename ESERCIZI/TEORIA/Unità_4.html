@@ -13,7 +13,7 @@
 
 <meta name="date" content="2023-09-04" />
 
-<title>Unità 4 Esercizi</title>
+<title>Unità 4</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -350,7 +350,7 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">Unità 4 Esercizi</h1>
+<h1 class="title toc-ignore">Unità 4</h1>
 <h4 class="author">Lorenzo Demenia</h4>
 <h4 class="date">2023-09-04</h4>
 
@@ -428,7 +428,7 @@ probabilità</li>
 </div>
 </div>
 <div id="test-z" class="section level1">
-<h1>Test Z</h1>
+<h1>1) Test Z</h1>
 <p>Per risolvere questi tipi di esercizi, che tante volte vengono
 accompagnati ad un calcolo della statistica, che in questo caso ci siamo
 accorti che è una <strong>statista Z</strong>, bisogna tenere in
@@ -456,8 +456,8 @@ alternativa</strong>:</p>
 <li>Test a una coda</li>
 <li>Test a due code</li>
 </ol>
-<div id="test-a-una-coda" class="section level2">
-<h2>Test a una coda</h2>
+<div id="test-z-a-una-coda" class="section level2">
+<h2>1.1) Test Z a una coda</h2>
 <p>Nel test ad una coda abbiamo visto che esistono di due tipi:</p>
 <ol style="list-style-type: decimal">
 <li><p><strong>Unilaterale Destro</strong>: controllo se l’ipotesi nulla
@@ -495,8 +495,8 @@ Pr(Z&lt;-z_{\alpha})= \alpha
 prima quando abbiamo maggiore o minore uguale possiamo mettere
 direttamente uguale</p>
 </div>
-<div id="test-a-due-code" class="section level2">
-<h2>Test a due code</h2>
+<div id="test-z-a-due-code" class="section level2">
+<h2>1.2) Test Z a due code</h2>
 <p>Se l’altrernativa è <strong>bilaterale</strong>: <span class="math display">\[
         H_0: \theta = \theta_0 \hspace{0.5cm} contro \hspace{0.5cm}
 H_A:  \theta \not = \theta_0
@@ -515,6 +515,148 @@ Pr(Z&gt;z_{\alpha/2}) \\
                                         =&amp; \alpha
         \end{align}
     \]</span></p>
+</div>
+<div id="massima-verosimiglianza-del-test-z" class="section level2">
+<h2>1.3) Massima Verosimiglianza del Test Z</h2>
+<p>Se l’ipotesi nulla <span class="math inline">\(H_0:
+\theta=\theta_0\)</span> è vera, sotto assunzioni di regolarità, los
+timatore di massima verosimiglianza ha distribuzione approssimativamente
+normale, possiamo usare questo risultato per cotruire le statistiche
+test Z:</p>
+<p><span class="math display">\[
+    Z = I(\theta_0)^{1/2}(\hat\theta- \theta_0) \hspace{0.5cm} oppure
+\hspace{0.5cm} Z= J(\theta_0)^{1/2}(\hat\theta- \theta_0)
+\]</span></p>
+<p>Alternativamente, usando l’errore standard stimato</p>
+<p><span class="math display">\[
+    Z = I(\hat\theta)^{1/2}(\hat\theta- \theta_0) \hspace{0.5cm} oppure
+\hspace{0.5cm} Z= J(\hat\theta)^{1/2}(\hat\theta- \theta_0)
+\]</span></p>
+<p>Infatti, se l’ipotesi null è vera allora <span class="math inline">\(\hat\theta \rightarrow \theta_0\)</span>, per
+<span class="math inline">\(n\)</span> sufficientemente grande</p>
+</div>
+</div>
+<div id="test-t" class="section level1">
+<h1>2) Test T</h1>
+<p>Anche qui distingueremo in due tipi di test differenti, prendendo un
+campione di piccole dimensionei da una popolazione normale con media
+<span class="math inline">\(\mu\)</span> e varianza <span class="math inline">\(\sigma^2\)</span> <strong>entrambe
+ignote</strong>, con una valutazione dell’ ipotesi <span class="math inline">\(H_0: \mu =\mu_0\)</span>:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Test a due code</strong>: come prima dove prendiamo in esame
+solo <span class="math inline">\(H_A : \mu \not = \mu_0\)</span></li>
+<li><strong>Test ad una code</strong>: come prima prendiamo in esame,
+<ul>
+<li><span class="math inline">\(H_A : \mu &gt; \mu_0\)</span></li>
+<li><span class="math inline">\(H_A : \mu &lt; \mu_0\)</span></li>
+</ul></li>
+</ol>
+<p>Per valutare le ipotesi utilizzeremo la statistica T di Student,
+<span class="math inline">\(n-1\)</span> gradi di libertà:</p>
+<p><span class="math display">\[
+    T = \frac{\sqrt{n}(\bar X - \mu_0)}{S}
+\]</span></p>
+<div id="test-t-a-una-coda" class="section level2">
+<h2>2.1) Test T a una coda:</h2>
+<p>Nel test ad una coda abbiamo visto che esistono di due tipi:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Unilaterale Destro</strong>: controllo se l’ipotesi nulla
+è peggiore dell’ipotesi alternativa <span class="math display">\[
+      H_0: \theta = \theta_0 \hspace{0.5cm} contro \hspace{0.5cm}
+H_A:  \theta &gt; \theta_0
+\]</span></p>
+<p>In questo caso si rifiuta per <strong>valori troppo grandi</strong>
+della statistica T</p>
+<p><span class="math display">\[
+     R = [t_{\alpha}, +∞ ) \hspace{0.5cm} e \hspace{0.5cm} A = (-∞ ,
+t_{\alpha})
+\]</span></p>
+<p>E il livello di significatività è <span class="math display">\[
+     Pr(Errore \space I \space tipo) = Pr(T \in R|H_0) =
+Pr(T&gt;t_{\alpha})= \alpha
+\]</span></p></li>
+<li><p><strong>Unilaterale Sinistro</strong>: controllo se se l’ipotesi
+nulla è migliore dell’altrernativa <span class="math display">\[
+      H_0: \theta = \theta_0 \hspace{0.5cm} contro \hspace{0.5cm}
+H_A:  \theta &lt; \theta_0
+\]</span></p>
+<p>In questo caso si rifiuta per <strong>valori troppo piccoli</strong>
+della statistica Z</p>
+<p><span class="math display">\[
+     R = (-∞, -t_{\alpha}] \hspace{0.5cm} e \hspace{0.5cm} A =
+(-t_{\alpha}, +∞)
+\]</span></p>
+<p>E il livello di significatività è <span class="math display">\[
+     Pr(Errore \space I \space tipo) = Pr(T \in R|H_0) =
+Pr(T&lt;-t_{\alpha})= \alpha
+\]</span></p></li>
+</ol>
+</div>
+<div id="test-t-a-due-code" class="section level2">
+<h2>2.2) Test T a due code:</h2>
+<p>Se l’altrernativa è <strong>bilaterale</strong>: <span class="math display">\[
+        H_0: \theta = \theta_0 \hspace{0.5cm} contro \hspace{0.5cm}
+H_A:  \theta \not = \theta_0
+    \]</span></p>
+<p>Si rifiuta per <strong>valori sia troppo piccoli che troppo
+grandi</strong> della statista T: <span class="math display">\[
+        R = (-∞, -t_{\alpha/2}] \cup [t_{\alpha/2}, +∞) \hspace{0.5cm} e
+\hspace{0.5cm} A = (-t_{\alpha/2}, t_{\alpha/2})
+    \]</span> E il livello di significatività è: <span class="math display">\[
+        \begin{align}
+        Pr(Errore \space I \space tipo) =&amp; Pr(T \in R|H_0) \\
+                                        =&amp; Pr(T&lt;-t_{\alpha/2})+
+Pr(T&gt;t_{\alpha/2}) \\
+                                        =&amp;
+\frac{\alpha}{2}+\frac{\alpha}{2} \\
+                                        =&amp; \alpha
+        \end{align}
+    \]</span></p>
+</div>
+<div id="test-t-a-due-campioni" class="section level2">
+<h2>2.3) Test T a due campioni:</h2>
+<p>In questo caso consideriamo di confrontare delle medie di due
+<strong>popolazioni normali</strong> con <strong>varianze
+ignote</strong>.</p>
+<p>In pratica andiamo a controllare se l’ipotesi nulla <span class="math inline">\(H_0: \mu_X -\mu_Y=D\)</span> con tutte e tre le
+alternative viste per il tipo di test, spesso si assume <span class="math inline">\(D=0\)</span>, per cui <span class="math inline">\(H_0: \mu_x=\mu_y\)</span>: <span class="math display">\[
+    H_A: \mu_x \not= \mu_x\hspace{0.5cm} o \hspace{0.5cm} H_A: \mu_x
+&gt; \mu_x\hspace{0.5cm} \hspace{0.5cm} o \hspace{0.5cm} H_A: \mu_x &gt;
+\mu_x \hspace{0.5cm}
+\]</span></p>
+<p>Nel caso di intervalli di confidenza dobbiamo distinguere fra due
+casi:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Varianze uguali</strong>: <span class="math inline">\(\sigma^2_X= \sigma^2_Y\)</span></li>
+<li><strong>Varianze diverse</strong>: <span class="math inline">\(\sigma^2_X \not= \sigma^2_Y\)</span></li>
+</ol>
+<div id="test-t-a-due-campioni-con-varianze-uguali" class="section level3">
+<h3>2.3.1) Test T a due campioni con Varianze Uguali:</h3>
+<p>In questo caso si usa la statistica T in questo modo: <span class="math display">\[
+    T= \frac{\bar X - \bar Y - D}{S_p \sqrt{\frac{1}{n}+\frac{1}{m}}}
+\]</span></p>
+<p>dove <span class="math inline">\(S^2_p\)</span> indica la viarianza
+“pooled” che abbiamo già incontrato nel calcolo degli intervalli di
+confidenza</p>
+<p><span class="math display">\[
+S^2_p = \frac{(n-1)S^2_X + (m-1)S^2_Y}{n+m-2}
+\]</span></p>
+<p>La statistica T si distribuisce come una variabile casuale <span class="math inline">\(T\)</span> di Student con <span class="math inline">\(n+m-2\)</span> gradi di libertà sotto <span class="math inline">\(H_0\)</span></p>
+</div>
+<div id="test-t-a-due-campioni-con-varianze-diverse" class="section level3">
+<h3>2.3.2) Test T a due campioni con Varianze Diverse:</h3>
+<p>In questo caso si usa la statistica T in questo modo: <span class="math display">\[
+    T= \frac{\bar X - \bar Y -
+D}{\sqrt{\frac{S^2_X}{n}+\frac{S^2_Y}{m}}}
+\]</span></p>
+<p>La statistica <span class="math inline">\(T\)</span> <em>non</em> si
+distribuisce <strong>esattamente</strong> come una variabile casuale
+<span class="math inline">\(T\)</span> di Student sotto <span class="math inline">\(H_0\)</span> (approssimazione di
+<em>Satterthwaite</em>), si approsima con <span class="math inline">\(\nu\)</span> : <span class="math display">\[
+    \nu = \frac{\frac{S^2_X}{n}+
+\frac{S^2}{m}}{\frac{S^4_X}{n^2(n-1)}+\frac{S^4_Y}{m^2(m-1)}}
+\]</span></p>
+</div>
 </div>
 </div>
 
