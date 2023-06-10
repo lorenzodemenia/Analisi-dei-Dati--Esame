@@ -1,0 +1,15 @@
+---
+title: "Esercizi 3"
+author: "Lorenzo Demenia"
+date: "2023-10-12"
+output: html_document
+---
+# Esercizio 1: 
+
+```{r}
+    
+```
+
+
+
+

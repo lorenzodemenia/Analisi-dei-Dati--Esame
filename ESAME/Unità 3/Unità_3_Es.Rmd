@@ -178,7 +178,7 @@ Quindi alla fine bisogna solo comporre :
     (z.tdistr / 0.5)^2 * (2.68)^2
 ```
 
-#Considerazioni finali
+# Considerazioni finali
 
 Per risolvere nel miglior modo questo tipo di esercizi, bisogna: 
 

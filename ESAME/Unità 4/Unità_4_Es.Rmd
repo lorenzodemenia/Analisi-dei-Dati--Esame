@@ -1,0 +1,118 @@
+---
+title: "Unità 4 Esercizi"
+author: "Lorenzo Demenia"
+date: "2023-10-12"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Intrduzione 
+
+Possiamo identificare 5 tipi di esercizi diversi per questa unità: 
+
+1. **Valutazione delle Ipotesi**: In questo tipo di esercizi, prima di tutto, biosgna identificare : 
+       
+    - **Che tipo di statistica stiamo usando**: cioè capire se è: 
+        - **Statistica Z**: quindi con un numero di campioni maggiore di 30 
+            
+        - **Statistica T**: cioè con un numero di campioni minore o uguale a 30 
+        
+        In questo caso non mi soffermo al lungo perché è argomento dell'unità 3, infatti questa parte è indispensabile 
+        per completare l'esercizio, cioè calcolare l'intervallo di confidenza.
+
+    - **Che tipo di ipotesi vogliamo usare**: a questo punto dobbiamo chiederci in quale di questi scenari saimo: 
+        - Ipotesi **alternativa bilaterale(test a due code)**: in pratica controllo se l'ipotesi alternativa
+        è diversa dell'ipotesi nulla 
+
+        $$
+            H_0: \theta = \theta_0 \hspace{0.5cm} contro \hspace{0.5cm} H_A:  \theta \not = \theta_0
+        $$
+
+        - Ipotesi **unilaterale sinistro (test ad una coda)**: controllo se se l'ipotesi nulla è migliore dell'altrernativa
+
+        $$
+            H_0: \theta \ge \theta_0 \hspace{0.5cm} contro \hspace{0.5cm} H_A:  \theta < \theta_0
+        $$
+
+        - Ipotesi **unilatrale destra (test ad una coda)**: controllo se l'ipotesi nulla è peggiore dell'ipotesi alternativa
+
+        $$
+            H_0: \theta \le \theta_0 \hspace{0.5cm} contro \hspace{0.5cm} H_A:  \theta > \theta_0
+        $$
+
+2. **Confronto delle Ipotesi**: In questa fase bisonga interpretare il testo e capire: 
+    - **Che tipo di statistica stiamo usando**: **Z** o **T**
+    - **Che tipo di ipotesi di Confronto vogliamo usare**: 
+
+# 1) Valutazione delle Ipotesi
+
+Come ho detto prima qui biosgna capire la statistica usata, per farlo basta che andate a vedere il foglio
+dell'unità 3. 
+
+Ma il discorso cambia quando dobbiamo analizzare il tipo di Ipotesi, poiché a seconda dell'ipotesi 
+usata, cambierà il risultato. 
+
+## 1.1) Ipotesi Bilatorale 
+
+Questo tipo di ipotesi la possiamo riconoscere con delle key-words presenti nel testo. In pratica
+quando si parla di confrontare due strategie diverse ma che mettono a paragone solo se sia andato 
+a buon fine oppure no. 
+
+### Esempio: 
+
+**Si verifichi se vi sia una differenza nel livello di gradimento verso le due strategie di
+promozione al livello di significatività del 5%.**
+
+In questo caso abbiamo visto che ci viene chiesto di confrontare le strategie di promozione
+per farlo abbaimo dedotto dal testo e dalla domanda che : 
+
+$$
+    H_0 : p = 0.5 \hspace{0.5cm} contro \hspace{0.5cm} H_A : p \not = 0.5 
+$$
+
+poichè se non vi è differeza fra le due promozioni allora la probbilità di preferire una delle due 
+promozione è pari a $0.5$. 
+
+Deduciamo anche che lo stimatore $\hat p$ ha distribuzione approssimativamente normale 
+con: 
+
+- $\bar x= 0.5$: media 
+- $Var(\hat p) = 0.5(1-0.5)/200$: varianza 
+
+Quindi ora avendo tutti i dati possiamo andare a valutare le ipotesi con la statistica test Z: 
+
+$$
+    Z= \frac{\sqrt{200}(\hat p - 0.5)}{0.5}
+$$
+
+A questo punto andiamo a trovare l'intervallo, 
+
+1. Andando a calcolare prima $z_{0.025}$:
+
+    ```{r}
+        z <- qnorm(0.975)
+    ```
+2. Poi sostituendo il tutto alla formual dell'intervallo $R$:
+    $$
+        R = \{ (-∞, -z_{0.025}]\cup [z_{0.025}, +∞) \} = \{ (-∞, -1.96]\cup [1.96, +∞) \}
+    $$
+3. A questo punto andiamo ad eseguire la formula della statistica Z descritta sopra su R : 
+
+    ```{r}
+        p_stimatore <- 90 / 200
+        p_stimatore
+        z_stima <- (sqrt(200) * (p_stimatore - 0.5)) / 0.5
+        z_stima
+    ```
+    - $\hat p =0.45$: Sarebbe la media dei campioni calcolata prendendo la percentuale dividendola per il nuermo di casi presi in considerazione
+
+Analizzando $z=-1.41$ possiamo dire che **non** possiamo rifiutare l'ipotesi, siccome abbiamo preso un valore troppo piccolo
+
+## Ipotesi Unilaterale 
+
+
+
