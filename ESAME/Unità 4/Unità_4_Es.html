@@ -404,8 +404,174 @@ controllo se l’ipotesi nulla è peggiore dell’ipotesi alternativa</li>
 H_A:  \theta &gt; \theta_0
   \]</span></p></li>
 </ul></li>
-<li></li>
+<li><p><strong>Confronto delle Ipotesi</strong>: In questa fase bisonga
+interpretare il testo e capire:</p>
+<ul>
+<li><strong>Che tipo di statistica stiamo usando</strong>:
+<strong>Z</strong> o <strong>T</strong></li>
+<li><strong>Che tipo di ipotesi di Confronto vogliamo
+usare</strong>:</li>
+</ul></li>
 </ol>
+</div>
+<div id="valutazione-delle-ipotesi" class="section level1">
+<h1>1) Valutazione delle Ipotesi</h1>
+<p>Come ho detto prima qui biosgna capire la statistica usata, per farlo
+basta che andate a vedere il foglio dell’unità 3.</p>
+<p>Ma il discorso cambia quando dobbiamo analizzare il tipo di Ipotesi,
+poiché a seconda dell’ipotesi usata, cambierà il risultato.</p>
+<div id="ipotesi-bilatorale" class="section level2">
+<h2>1.1) Ipotesi Bilatorale</h2>
+<p>Questo tipo di ipotesi la possiamo riconoscere con delle key-words
+presenti nel testo. In pratica quando si parla di confrontare due
+strategie diverse ma che mettono a paragone solo se sia andato a buon
+fine oppure no.</p>
+<div id="esempio" class="section level3">
+<h3>Esempio:</h3>
+<p><strong>Si verifichi se vi sia una differenza nel livello di
+gradimento verso le due strategie di promozione al livello di
+significatività del 5%.</strong></p>
+<p>In questo caso abbiamo visto che ci viene chiesto di confrontare le
+strategie di promozione per farlo abbaimo dedotto dal testo e dalla
+domanda che :</p>
+<p><span class="math display">\[
+    H_0 : p = 0.5 \hspace{0.5cm} contro \hspace{0.5cm} H_A : p \not =
+0.5
+\]</span></p>
+<p>poichè se non vi è differeza fra le due promozioni allora la
+probbilità di preferire una delle due promozione è pari a <span class="math inline">\(0.5\)</span>.</p>
+<p>Deduciamo anche che lo stimatore <span class="math inline">\(\hat
+p\)</span> ha distribuzione approssimativamente normale con:</p>
+<ul>
+<li><span class="math inline">\(\bar x= 0.5\)</span>: media</li>
+<li><span class="math inline">\(Var(\hat p) = 0.5(1-0.5)/200\)</span>:
+varianza</li>
+</ul>
+<p>Quindi ora avendo tutti i dati possiamo andare a valutare le ipotesi
+con la statistica test Z:</p>
+<p><span class="math display">\[
+    Z= \frac{\sqrt{200}(\hat p - 0.5)}{0.5}
+\]</span></p>
+<p>A questo punto andiamo a trovare l’intervallo,</p>
+<ol style="list-style-type: decimal">
+<li><p>Andando a calcolare prima <span class="math inline">\(z_{0.025}\)</span>:</p>
+<pre class="r"><code>    z &lt;- qnorm(0.975)</code></pre></li>
+<li><p>Poi sostituendo il tutto alla formual dell’intervallo <span class="math inline">\(R\)</span>: <span class="math display">\[
+     R = \{ (-∞, -z_{0.025}]\cup [z_{0.025}, +∞) \} = \{ (-∞, -1.96]\cup
+[1.96, +∞) \}
+\]</span></p></li>
+<li><p>A questo punto andiamo ad eseguire la formula della statistica Z
+descritta sopra su R :</p>
+<pre class="r"><code>    p_stimatore &lt;- 90 / 200
+    p_stimatore</code></pre>
+<pre><code>## [1] 0.45</code></pre>
+<pre class="r"><code>    z_stima &lt;- (sqrt(200) * (p_stimatore - 0.5)) / 0.5
+    z_stima</code></pre>
+<pre><code>## [1] -1.414214</code></pre>
+<ul>
+<li><span class="math inline">\(\hat p =0.45\)</span>: Sarebbe la media
+dei campioni calcolata prendendo la percentuale dividendola per il
+nuermo di casi presi in considerazione</li>
+</ul></li>
+</ol>
+<p>Analizzando <span class="math inline">\(z=-1.41\)</span> possiamo
+dire che <strong>non</strong> possiamo rifiutare l’ipotesi, siccome
+abbiamo preso un valore troppo piccolo</p>
+</div>
+</div>
+<div id="ipotesi-unilaterale" class="section level2">
+<h2>1.2) Ipotesi Unilaterale</h2>
+<p>In questo caso viene richiesto di fare un confronto, fra due ipotesi
+presi a distanza di un certo lasso di tempo.</p>
+<div id="esempio-1" class="section level3">
+<h3>Esempio:</h3>
+<p><strong>Dopo mezzo anno viene intervistato un secondo campione
+casuale di 250 clienti. Il numero di clienti in questo secondo campione
+che dichiara di preferire il televisore con lo sconto è 105. Questo
+risultato conferma che i clienti ora preferiscono maggiormente
+l’abbonamento di quanto non lo preferissero prima?</strong></p>
+<p>Quindi :</p>
+<ol style="list-style-type: decimal">
+<li><p>Andiamo a definire come vogliamo indicare le nostre
+probabilità:</p>
+<ul>
+<li><span class="math inline">\(p_1\)</span>: la probabilità di
+preferire l’abbonamento allo sconto al tempo della prima
+rivelazione</li>
+<li><span class="math inline">\(p_2\)</span>: la stessa probabilità dopo
+mezzo anno</li>
+</ul></li>
+<li><p>Denfinire come lo vogliamo valutare: In questo caso vogliamo
+valutare il sistema d’ipotesi con alternativa unilaterale sinistra:
+<span class="math display">\[
+                                         H_0 : p_1 = p_2 \hspace{0.5cm}
+contro \hspace{0.5cm} H_A : p_1 &lt; p_2
+                                     \]</span> possiamo vederlo come:
+<span class="math display">\[
+                                         H_0 : \theta = 0 \hspace{0.5cm}
+contro \hspace{0.5cm} H_A :   \theta &lt; 0
+                                     \]</span> dove <span class="math inline">\(\theta = p_1-p_2\)</span> e come stimatore avremo
+<span class="math inline">\(\hat\theta = \hat p_1-\hat
+p_2\)</span></p></li>
+<li><p>Ora dobbiamo valutare l’ipotesi per la statistica presa in
+considerazione: <span class="math display">\[
+     Z= \frac{\hat p_1 - \hat p_2}{\sqrt{\hat p(1- \hat
+p)(\frac{1}{200}+ \frac{1}{250})}}
+\]</span> Dove :</p>
+<ul>
+<li><span class="math inline">\(\hat p =
+(90+145)/(200+250)=0.52\)</span>: è la stima “pooled”, ottenuta
+utilizzando i dati di entrambe le rilevazioni, ovvero la proporzione
+complessiva di clienti che ha dichiarato di preferire l’abbonamento</li>
+<li><span class="math inline">\(\hat p_1 = 0.45\)</span>: trovato
+andando a dividere la percentuale per il numero di clienti <span class="math inline">\(90/200\)</span></li>
+<li><span class="math inline">\(\hat p_2 = 145/250 = 0.58\)</span></li>
+</ul></li>
+<li><p>Definiamo il livello di significatività: siccome nel testo non
+c’è scritto, ho deciso di metterlo al <span class="math inline">\(5\%\)</span></p></li>
+<li><p>Una volta deciso il livello di significatività andiamo a
+costruire l’intervallo su cui ci baseremo:</p>
+<ul>
+<li><p>Calcolato in R viene :</p>
+<pre class="r"><code>z &lt;- qnorm(0.05)
+z</code></pre>
+<pre><code>## [1] -1.644854</code></pre></li>
+<li><p>Messo in formula viene: <span class="math display">\[
+      R=(-∞, -z_{0.05}]= (-∞, -1.64]
+  \]</span></p></li>
+</ul></li>
+<li><p>Risolviamo la statistica: <span class="math display">\[
+     z=
+\frac{0.45-0.58}{\sqrt{0.52(1-0.52)(\frac{1}{200}+\frac{1}{250})}}
+\]</span></p>
+<p>Calcolato in R, viene:</p>
+<pre class="r"><code>    n1 &lt;- 200
+    n1_percentuale &lt;- 90
+    n2 &lt;- 250
+    n2_percentuale &lt;- 145
+
+    p1_stimatore &lt;- n1_percentuale / n1
+    p1_stimatore</code></pre>
+<pre><code>## [1] 0.45</code></pre>
+<pre class="r"><code>    p2_stimatore &lt;- n2_percentuale / n2
+    p2_stimatore</code></pre>
+<pre><code>## [1] 0.58</code></pre>
+<pre class="r"><code>    p_stimatore &lt;- (n1_percentuale + n2_percentuale) / (n1 + n2)
+
+    z_stima &lt;- (p1_stimatore- p2_stimatore)/ sqrt(p_stimatore * (1 - p_stimatore) * ((1/n1) + (1/n2)))
+    z_stima</code></pre>
+<pre><code>## [1] -2.743351</code></pre></li>
+<li><p><strong>Conclusioni</strong>: In questo caso rifiutiamo l’ipotesi
+nulla <span class="math inline">\(H_0: p_1 = p_2\)</span> ma accettiamo
+l’ipotesi alternativa <span class="math inline">\(H_A: p1 &lt;
+p2\)</span>, con l’ivello di approssimazione del <span class="math inline">\(5 \%\)</span> e concludiamo che sia aumentato nel
+tempo il grado di preferenza verso l’offerta dell’abbonamento al
+servizio di streaming rispetto all’offerta dello sconto.</p></li>
+</ol>
+<p>Vale lo stesso principio per la destra, basta cambiare l’intervallo e
+le conlcusioni finali.</p>
+</div>
+</div>
 </div>
 
 

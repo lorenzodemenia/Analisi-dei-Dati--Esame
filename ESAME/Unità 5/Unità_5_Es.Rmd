@@ -1,0 +1,12 @@
+---
+title: "Unità 5 Esercizi"
+author: "Lorenzo Demenia"
+date: "2023-11-04"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+```

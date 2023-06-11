@@ -112,7 +112,87 @@ A questo punto andiamo a trovare l'intervallo,
 
 Analizzando $z=-1.41$ possiamo dire che **non** possiamo rifiutare l'ipotesi, siccome abbiamo preso un valore troppo piccolo
 
-## Ipotesi Unilaterale 
+## 1.2) Ipotesi Unilaterale 
+
+In questo caso viene richiesto di fare un confronto, fra due ipotesi presi a distanza di un 
+certo lasso di tempo. 
+
+### Esempio: 
+
+**Dopo mezzo anno viene intervistato un secondo campione casuale di 250 clienti.
+Il numero di clienti in questo secondo campione che dichiara di preferire il televisore 
+con lo sconto è 105. Questo risultato conferma che i clienti ora preferiscono maggiormente 
+l’abbonamento di quanto non lo preferissero prima?**
+
+Quindi : 
+
+1. Andiamo a definire come vogliamo indicare le nostre probabilità: 
+    - $p_1$: la probabilità di preferire l'abbonamento allo sconto al tempo della prima rivelazione
+    - $p_2$: la stessa probabilità dopo mezzo anno
+
+2. Denfinire come lo vogliamo valutare: In questo caso vogliamo valutare il sistema d'ipotesi con alternativa 
+                                        unilaterale sinistra: 
+                                        $$
+                                            H_0 : p_1 = p_2 \hspace{0.5cm} contro \hspace{0.5cm} H_A : p_1 < p_2 
+                                        $$
+                                        possiamo vederlo come: 
+                                        $$
+                                            H_0 : \theta = 0 \hspace{0.5cm} contro \hspace{0.5cm} H_A :   \theta < 0 
+                                        $$
+                                        dove $\theta = p_1-p_2$ e come stimatore avremo $\hat\theta = \hat p_1-\hat p_2$
+3. Ora dobbiamo valutare l'ipotesi per la statistica presa in considerazione: 
+    $$
+        Z= \frac{\hat p_1 - \hat p_2}{\sqrt{\hat p(1- \hat p)(\frac{1}{200}+ \frac{1}{250})}}
+    $$
+    Dove : 
+    - $\hat p = (90+145)/(200+250)=0.52$: è la stima "pooled", ottenuta utilizzando i dati di entrambe le rilevazioni, ovvero 
+                la proporzione complessiva di clienti che ha dichiarato di preferire l'abbonamento
+    - $\hat p_1 = 0.45$: trovato andando a dividere la percentuale per il numero di clienti $90/200$
+    - $\hat p_2 = 145/250 = 0.58$ 
+
+4. Definiamo il livello di significatività: siccome nel testo non c'è scritto, ho deciso di metterlo al $5\%$
+
+5. Una volta deciso il livello di significatività andiamo a costruire l'intervallo su cui ci baseremo: 
+    - Calcolato in R viene : 
+        ```{r}
+        z <- qnorm(0.05)
+        z
+        ```
+    - Messo in formula viene: 
+        $$
+            R=(-∞, -z_{0.05}]= (-∞, -1.64]
+        $$
+
+6. Risolviamo la statistica: 
+    $$
+        z= \frac{0.45-0.58}{\sqrt{0.52(1-0.52)(\frac{1}{200}+\frac{1}{250})}}
+    $$
+
+    Calcolato in R, viene: 
+
+    ```{r}
+        n1 <- 200
+        n1_percentuale <- 90
+        n2 <- 250
+        n2_percentuale <- 145
+
+        p1_stimatore <- n1_percentuale / n1
+        p1_stimatore
+
+        p2_stimatore <- n2_percentuale / n2
+        p2_stimatore
+
+        p_stimatore <- (n1_percentuale + n2_percentuale) / (n1 + n2)
+
+        z_stima <- (p1_stimatore- p2_stimatore)/ sqrt(p_stimatore * (1 - p_stimatore) * ((1/n1) + (1/n2)))
+        z_stima
+    ```
+7. **Conclusioni**: In questo caso rifiutiamo l'ipotesi nulla $H_0: p_1 = p_2$ ma accettiamo l'ipotesi 
+    alternativa $H_A: p1 < p2$, con l'ivello di approssimazione del $5 \%$ e concludiamo che sia 
+    aumentato nel tempo il grado di preferenza verso l'offerta dell'abbonamento al servizio di 
+    streaming rispetto all'offerta dello sconto.
+
+Vale lo stesso principio per la destra, basta cambiare l'intervallo e le conlcusioni finali. 
 
 
 
