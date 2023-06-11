@@ -1,0 +1,63 @@
+---
+title: "Unità 5 Esercizi"
+author: "Lorenzo Demenia"
+date: "2023-11-04"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# 1) Tabella di Contingenza
+
+Sarebbe una tabella dove va ad elencare dei dati che possiedeo contemporaneamente più 
+caratteristiche. 
+
+I casi richiesti e riscontrati sono due: 
+
+1. Di completare una già presente
+
+2. Crearne una dai dati forniti nella consegna
+
+## 1.1) Completare la tabella
+
+Molto semplice , basta vedere il totale delle righe e delle colonne
+e anche sui dati a nostra disposizone per vedere se la somma dei numeri coincide: 
+
+**Per Esempio:**                               
+Se trovi in una righa 18, 14, ? e sai che il totale è 45, 
+allora basterà fare la somma dei dati che abbiamo e poi 
+dividerla per il totale.
+
+## 1.2) Creare una dai dati forniti
+
+A volte ci viene chiesto di valutare una tabella sulla base di una già esistente, ma sotto 
+altri parametri
+
+
+
+# 2) Valutazione Eventi
+## 2.1) Eventi indipendenti
+## 2.2) Eventi dipendenti
+
+# 3) Calcolo delle Distribuzioni di Frequenza 
+## 3.1) Confronto Distribuzioni 
+Marignali e Condizionate
+
+# 4) Tabella di Frequenza
+
+# 5) Valutazione dell'Ipotesi 
+
+# 6) Retta di Regressione 
+## 6.1) Stima della retta 
+## 6.2) Discussione dell'andamento
+
+# 7) Indice di determinazione
+## 7.1) Calcolo 
+## 7.2) Valutazione
+
+# 8) Modello di Regressione
+# 8.1) Costruzione 
+# 8.2) Valutazione 
