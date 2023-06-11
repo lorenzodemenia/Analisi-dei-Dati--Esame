@@ -1,0 +1,492 @@
+---
+title: "Unità 5"
+author: "Lorenzo Demenia"
+date: "2023-11-04"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+# 1) Variabli Categoriali 
+
+Le variabili categoriali si differenziano dalle variabili numeriche perché assumono come valori delle **categorie** o **livelli**.
+E si distinguono a secondo della loro **scala di misura**: 
+
+- **Nominale**: es. colore degli occhi con livelli marrone, verde, blue, ... 
+- **Ordinale**: le quali possono essere costruite **discretizzando** le variabili continue,
+es. numero di ore di studio per preparare l’esame: elevato (piu` di 200 ore) > alto (fra 150 e 200 ore) > medio (fra 100 e 150 ore) 
+
+In pratica vanno a definire dei livelli/ categorie per ogni dato trovato, sono come dei cluster 
+
+## 1.1) Test d'indipendeza 
+
+In questo test viene valutato se due variabili categoriali $A$ e $B$ sono indipendenti o meno: 
+
+- $H_0: A$ e $B$ sono **indipendenti**
+- $H_A: A$ e $B$ sono **dipendenti**
+
+In questo caso assiumiamo che: 
+
+- $A$ con $k$ livelli $A_1,...,A_k$
+- $B$ con $m$ livelli $B_1,...,B_m$
+
+Conoscendo questi dati, possiamo dire che: 
+
+- **L'indipendeza di A e B**: in pratica la probabilità dell'intersezione di tutti gli elementi di $A$ e $B$, **coincide** con il prodotto della probabilità singola degli elementi:
+
+    $Pr(X \in A_i \cap B_j)= Pr(X \in A_i )Pr(X \in B_j)$, per tutte le coppie $(i,j)$
+    
+- **La dipendeza di A e B**: in pratica la probabilità dell'intersezione di tutti gli elementi di $A$ e $B$, **non coincide** con il prodotto della probabilità singola degli elementi:
+
+    $Pr(X \in A_i \cap B_j)\not= Pr(X \in A_i )Pr(X \in B_j)$, per tutte le coppie $(i,j)$
+
+## 1.2) Tabelle di Contingenza
+
+Supponiamo di valutare l'ipotesi di indipendeza sulla base di un campione di $n$ osservazioni, 
+quindi possiamo indicare con $n_{ij}$ il numero di unità campionarie che possiedono **contemporaneamente** 
+le cateorie $A_i$ e $B_j$, queste le disponiamo in una **Tabella di contingenza**, dove:
+
+- $n_{i·}= \sum^m_{j=1} n_{ij}$: che sarebbe il totale di **riga**
+- $n_{·j}= \sum^k_{i=1} n_{ij}$: che sarebbe il totale della **colonna**
+- $n= \sum^k_{i=1}\sum^m_{j=1} n_{ij}$: che sarebbe il totale **complessivo**
+
+In pratica si parla di mettere in una tabella i dati raccolti e il totale complessivo è la somma delle
+righe per le colonne. 
+
+Da questa tabella si ricavano anche: 
+
+- **Congiunte**: $n_{ij}/n(i=1,...,m, J=1,...,k)$
+- **Marginali**: 
+    - $n_{i·}/n(i=1,...,m)$: delle righe 
+    - $n_{·j}/n(j=1,...,k)$: delle colonne
+- **Condizionate**:
+    - $n_{i|j}=n_{ij}/n_{·j}(i=1,...,m)$: delle righe 
+    - $n_{j|i}=n_{ij}/n_{i·}(j=1,...,k)$: delle colonne
+
+# 2) La statistica $X^2$
+>
+Per valutare il sistema d'ipotesi si può usare il test $X^2$ (**chi quadro**), che è basato sulla 
+**Statistica $X^2$**:
+$$
+    X^2= \sum^k_{i=1}\sum^m_{ij=1} \frac{(O_{ij}- E_{ij})^2}{E_{ij}}
+$$
+>
+
+Dove : 
+
+- $O_{ij}$: sarebbe il numero di unità campionarie **osservate** con contemporaneamente $A_i$ e $B_j$, e sono pari a $n_{ij}$
+- $E_{ij}$: sarebbe il numero di unità campionarie **attese** con contemporaneamente $A_i$ e $B_j$ **se $H_0$ fosse vera** e devono 
+            essere calcolate sotto l'ipotesi nulla di indipendenza : 
+            $$
+                E_{ij}= nPr(X \in A_i)Pr(X \in B_j)
+            $$
+            Con i dati campionari stimiamo le **probabilità marginali** con le corrispondenti 
+            frequenza relative marginali: 
+            $$
+                \hat Pr(X \in A_i)= \frac{n_{i·}}{n} \hspace{0.5cm} e \hspace{0.5cm} \hat Pr(X \in B_j)= \frac{n_{·j}}{n}
+            $$
+            Quindi, le **frequenze attese stimate** sono: 
+            $$
+                \hat E_{ij}= \frac{n_{i·}n_{·j}}{n}
+            $$
+
+Valori **piccoli di $X^2$** sono a favore dell'ipotesi nulla, mentre valori **sufficientemente grandi** sono a suo sfavore, quindi **NO**
+
+Calcolata : 
+$$
+    d_{ij}= (n_{ij}-n{i·}n_{·j}/n)
+$$
+
+## 2.1) Test $X^2$
+>
+Il test $X^2$ è un test ad una coda, con alternativa unilaterale destra
+>
+
+La regione di rifiuto con livello di significatività $\alpha$: 
+
+$$
+    R=[X^2_{\alpha}, +∞)
+$$
+
+Livello di significatività osservato (**p-value**):
+
+$$
+    p=Pr(X^2 \ge X^2_{oss})
+$$
+
+dove $X^2_{oss}$ è il valore osservato della statistica $X^2$, e la distribuzione della 
+statistica $X^2$ sotto l'ipotesi nulla converge alla **distribuzione** della variabile 
+casuale $X^2$ con $(k-1)(m-1)$ **gradi di libertà**
+
+>
+Regola pratica: l'approssimazione con la distribuzione della variabile casuale $X^2$ è considerata
+accetabile se **non** ci sono frequenze atteste inferiori a 5
+>
+
+## 2.2) Gradi di libertà
+
+>
+I gradi di libertà sono la dimensione dello spazio dove variano le differenze $d-{ij}$, ci sono $m*k$ diffrenze in $d_{ij}$
+>
+Vanno tolti i vincoli sulle righe e sulle colonne: 
+
+- $d_{i·}= \sum^m_{i=1} d_{ij}=0$ (k vincoli)
+- $d_{·j}= \sum^k_{j=1} d_{ij}=0$ (m vincoli)
+
+Quindi i gradi di libertà sono: 
+
+$$
+    m * k - m- k + 1 = (m-1)(k-1)
+$$
+
+## 2.3) Calcolo di regioni di rifiuto e p-value 
+
+Per calcolre la regione di rifiuto con livello di significatività $\alpha$
+
+$$
+    R=[X^2_{\alpha}, +∞)
+$$
+
+è necessario il quantile di livello $1- \alpha$ della distribuzione $X^2$ con 
+$(m-1)(k-1)$ gradi di libertà, questo valore può essere ottneunto con **R**:
+
+```{r}
+    qchisq(0.95, df = 5)
+```
+
+Invece per caloclare il **p-value**: 
+$$
+    p=Pr(X^2 \ge X^2_{oss})
+$$
+
+possiamo anche qui usare **R**: 
+
+```{r}
+    pchisq(0.95, df = 5)
+```
+# 3) Modelli di regressione 
+
+Consideriamo ora il caso in cui vogliamo valutare la presenza di dipendeza fra 
+due variabili numeriche, in particolare, valutiamo se una variabile $X$ può essere 
+usata per **prevedere** una variabile $Y$, dove: 
+
+- $X$: è la variabile **predittore**
+- $Y$: è la variabile **risposta**
+
+Nei **modelli di regressione** si valuta la capacità predittiva della variabile $X$ sulla 
+variabile $Y$ attraverso il valore atteso condizionato 
+
+$$
+    G(x)= E(Y|X =x)
+$$
+
+Dove, $G(x)$ è una funzione di $x$ la cui forma può essere stiamta con i dati 
+
+## 3.1) Modelli di regressione Lineare
+
+Il può semplice modello di regressione è quello **lineare semplice** o **retta di 
+regressione**: 
+
+$$
+    G(x)= \beta_0+\beta_1 x
+$$
+
+Dove: 
+
+- $\beta_0$: viene detta **intercetta**, che è il valore predetto dal modello quando $x=0$, ovvero
+        $$
+            \beta_0 = G(0)
+        $$
+        e spesso non ha un particolare significato. Per esempio: 
+        Nessuno è interessato al prezzo di vendita di una casa ($Y$) con una dimensione
+        ($X$) pari a zero metri quadri 
+
+- $\beta_1$: viene detto **coefficiente angolare**, ed è la variazione della risposta quando il predittore 
+        aumenta di una unità: 
+        $$
+            \beta_1=G(x+1)-G(x)= \{\beta_0+\beta_1(x+1)\}- \{\beta_0+\beta_1x\}
+        $$  
+        Ci dice, per esempio, quanto aumenta il prezzo di vendita di una casa all'aumentare della 
+        dimensione di metro quadro 
+
+>
+Se $\beta_1=0$ allora non vi è relazione fra $Y$ e $X$
+>
+
+## 3.2) Metodo dei minimi Quadrati 
+
+>
+Il metodo dei minimi quadrati costruisce la **stima $\hat G(x)$** della funzione di regression 
+$G(x)$ minimizzando la somma dei quadrati delle differenze fra le risposte
+$$
+    y_1, ..., y_n
+$$
+>
+
+I dati consistono in $n$ coppie di osservazioni $(y_1,x_1),...,(y_n,x_n)$ e le corrispondenti 
+previsioni basate sul modello di regressione, sono: 
+$$
+    \hat y_1 = \hat G(x_1),... \hat y_n= \hat G(x_n)
+$$
+Ovvero, minimizza la somma dei quadrati **residui $e_i=y_i- \hat y_i$**, cioè
+$$
+    \sum^n_{i=1}e^2_i = \sum^n_{i=1} (y_i- \hat y_i)^2
+$$
+
+Il metodo dei minimi quadrati ottiene le stima dei parametri $\beta_0$ e $\beta_1$ minimizzando
+$$
+    Q(\beta_0,\beta_1)= \sum^n_{i=1}\{y_i-(\beta_0+\beta_1x_i)\}^2
+$$
+
+ovvero risolvendo il sistema delle **equazioni normali**
+
+$$
+    \bigg \{
+    \begin{array}{rl}
+        \frac{\delta Q (\beta_0,\beta_1)}{\delta \beta_0}=O \\
+        \frac{\delta Q (\beta_0,\beta_1)}{\delta \beta_1}=O\\
+    \end{array}
+$$
+
+Le cui soluzioni sono : 
+
+$$
+    \hat \beta_0 = \bar y - \hat \beta_1 \bar x \hspace{0.5cm} e \hspace{0.5cm} \hat \beta_1 = \frac{S_{xy}}{S^2_x}
+$$
+
+dove 
+
+$$
+    S_{xy}=\frac{1}{n-1}\sum^n_{i=1}(x_i-\bar x)(y_i - \bar y)  \hspace{0.5cm} S^2_x=\frac{1}{n-1}\sum^n_{i=1}(x_i-\bar x)^2
+$$
+
+Lo stimatore del coefficiente angolre può essre riscritto in funzione del coefficiente di 
+correlazione, andando ad indicare con $r_{xy}$ il coefficiente di correlazione: 
+
+$$
+    r_{xy}= \frac{S_{xy}}{S_yS_x}
+$$
+
+Abbiamo 
+
+$$
+    \hat \beta_1 = r_{xy}\frac{S_y}{Sx}
+$$
+
+Quindi: 
+
+- $\hat \beta_1 >0$ se $X$ e $Y$ sono correlate **positivamente**
+- $\hat \beta_1 <0$ se $X$ e $Y$ sono correlate **negativamente**
+- $\hat \beta_1 =0$ se $X$ e $Y$ sono **incorrelate**
+
+## 3.3) Decomposizione della varianza 
+
+La **varianza totale** delle risposte è descritta dalla **somma dei quadrati totale**
+
+$$
+    SQ_{tot}= (n-1)s^2_y
+$$
+
+per cui vale la decomposizione 
+
+$$
+    SQ_{tot}= SQ_{reg}+SQ_{res}
+$$
+
+dove : 
+
+- $SQ_{reg}$: è la **somma dei quadrati spiegata** dal modello 
+            $$
+                SQ_{reg}= \sum^n_{i=1} (\hat y_i - \bar y)^2
+            $$
+- $SQ_{res}$: è la **somma dei quadrati residua** dal modello 
+            $$
+                SQ_{res}= \sum^n_{i=1} (y_i - \bar y_i)^2
+            $$
+
+>
+Il coefficiente di determinazione o $R^2$ è la proporzione della variazione totale spiegta dal modello 
+di regressione, e assume valorei fra 0 e 1 
+$$
+    R^2= 1- \frac{SQ_{res}}{SQ_{tot}}
+$$
+>
+
+Tanto più è alto $R^2$ tanto migliore sarà l'adattamento del modello di regressione ai dati , 
+siccome nel modello di regressione lineare semplice si dimostra che $R^2=r^2_{xy}$, il 
+quadrato del coefficiente di correlazione. 
+
+Se $X$ e $Y$ sono perfettamente correlate $R_{xy}= ± 1$ e il coefficente di determinazione 
+vale $R^2=1$
+
+# 4) Intervalli di Confidenza e Verifica delle Ipotesi
+
+>
+Nel modello di regressione lineare semplice il parametro di interesse è il coefficente 
+angolare $\beta_1$
+>
+
+Per calcolare intervalli di confidenza e valutare ipotesi su $\beta_1$ dobbiamo introdurre 
+delle assuntzioni. 
+
+Consideriamo il modello di regressione lineare semplice con **errori normali**
+
+$$
+    Y_i=\beta_0+\beta_1x_i+\epsilon_i
+$$
+
+Assunzioni: 
+
+- Gli errori $\epsilon_i$ sono variabili casuali indipendenti normali di media zero e varianza
+    $\sigma^2$
+
+- Il predittore è una quantità **non casuale**
+
+Sotto queste assunzioni $Y_i$ sono variabili normali indipendenti con 
+
+$$
+    E(Y_i|x_i)= \beta_0+ \beta_1x_i \hspace{0.5cm} e \hspace{0.5cm} Var(Y_i|x_i)= \sigma^2
+$$
+
+Semplifico l'espressione di $\hat \beta_1$, e dico che è uno **stimatore non distorto**:
+$$
+    \hat \beta_1 = \frac{\sum^n_{i=1}(x_i- \bar x)Y_i}{\sum^n_{i=1}(x_i- \bar x)^2}
+$$
+
+La varianza di $\hat \beta_1$ è: 
+$$
+    \hat Var(\hat \beta_1|x_1,...,x_n)= \frac{S^2_e}{(n-1)S^2_x}
+$$
+dove 
+$$
+    S^2_e = \frac{1}{n-2}\sum^n_{i=1}(y_i-\hat y_i)^2
+$$
+
+>
+Lo stimatore $\hat\beta_1$ è una combinazione di variabili normali, quindi è distribuito come una
+variabile normale di **media $\beta_1$** e **varianza $\hat Var(\hat \beta_1)=\frac{S^2_e}{(n-1)S^2_x}$**
+>
+
+Siccome è distribuito normalmente possiamo calcolare gli intervalli di confidenza per $\beta_1$
+con la statistica $T$
+
+L'intervallo di confidenza di livello $1- \alpha$ per $\beta_1$ è 
+
+$$
+    \hat \beta_1 ± t_{\alpha/2} \frac{S_e}{S_x\sqrt{n-1}}
+$$
+
+dove $t_{\alpha/2}$ è il quantile di posizione $1-\alpha/2$ della distribuzione
+$T$ di student con **$(n-2)$ gradi di libertà**
+
+I gradi di libertà sono $n-2$ perché ci sono due parametri ($\beta_0$ e $\beta_1$) che devono
+essere stgimati per calcolare $S^2_e$
+
+## 4.1) Verifica delle Ipotesi su $\beta_1$
+
+Consideriamo un sistema d'ipotesi con ipotesi nulla 
+
+$$
+    H_0 : \beta_1 = \beta^0_1
+$$
+
+L'ipotesi può essere valutata con la statistica $T$
+$$
+    \begin{align} T = & \frac{\hat \beta_1 -\beta^0_1}{\hat SE(\hat \beta_1)} \\
+                    = &\frac{S_x\sqrt{n-1}}{S_e}(\hat \beta_1 - \beta^0_1)
+    \end{align}
+$$
+
+che si distribuisce come una variabile casuale $T$ con $n-2$ gradi di libertà sotto 
+l'ipotesi nulla 
+
+Un caso particolare è il **test di significatività del predittore** che viene 
+condotto per valutare se un predittore è **statisticamente significativo**.
+
+Si tratti di un test bilaterale in cui l'ipotesi nulla e il predittore è inifluente 
+nel **modello di regressione lineare**
+
+$$
+    H_0: \beta_1 = 0 \hspace{0.5cm} e \hspace{0.5cm} H_A: \beta_1 \not = 0 
+$$
+
+La statistica test $T$ è quindi pari a 
+
+$$
+    T= \frac{S_x\sqrt{n-1}}{S_e}\hat \beta_1
+$$
+
+Se il test porta al rifiuto dell'ipotesi nulla, allora il predittore è statisticamente
+significativo.
+
+Se il testi di significatività indica che non si può rifiutare nulla vuol dire che **non**
+vi è una **relazione lineare** fra il predittore e la risposta.
+
+Questo non vuol dire che non vi possa essere una qualche **relazione non lineare** fra 
+predittore e risposta. 
+
+## 4.2) Previsioni 
+
+Previsione della risposta in corrispondeza ad un particolare valore del predittore $x_*$:
+
+$$
+    \hat y_* = \hat \beta_0 + \hat \beta_1 x_*
+$$
+
+Siccome i parametri della retta $\beta_0$ e $\beta_1$ sono stati stimati, allora la previsine
+sarà affetta da incertezza.
+
+SI dimostra che la viarianza di $\hat y_*$ è 
+$$
+    Var(\hat y_*)= \sigma^2(1+\frac{1}{n}+\frac{(x_*- \bar x)^2}{(n-1)S^2_x})
+$$
+
+con cui possiamo calcolare **l'intervallo di prevsione**
+
+$$
+    \hat y_* ± t_{\alpha/2}\sqrt{\hat Var(\hat y_*)}
+$$
+
+Dove $T_{\alpha/2}$ è il quantile di posizione $1- \alpha/2$ della distribuzione $T$
+con $n-2$ gradi di libertà e la varianza $\sigma^2$ è stimata con $s^2_e$.
+
+
+# 5) Analisi dei residui
+
+Il modello di regressione è stato analizzato assumendo che gli errori 
+siano variabili normali indipendenti con media nille e varianza $\sigma^2$.
+
+Dobbiamo verificare le assunzione per poter credere nei risultati ottenuti. 
+
+I residui $e_i$ sono le sime degli errori $\epsilon_i$ e quindi ci aspettimao che siano:
+
+- **normalmente distribuiti**
+- **indipendenti** fra di loro 
+- con **varianza costante** ovvero **omoschedastici**
+
+Inoltre, se l'assunzione di relazione lineare fra la risposta e il predittore è valida,
+allora i **residui** non dovrebbero avere **nessuna relazione con il predettore**
+
+# 6) Regressione Polinomiale
+
+L'assunzione di linearità del modello di regressione può essre superata considerando
+modelli non-lineari. 
+
+Fra i diversi tipi di modelli di regressione non lineari, i più semplici sono i modelli di 
+regressione polinomiali, che contengono potenze del predittore fino ad un certo grado 
+
+$$
+    Y_i = \beta_0+...+ \beta_kx_i^k
+$$
+
+Il massimo ordine del polinomio ch epuò essere considerato (sitmato il modello con il metodo 
+dei minimi quadrati) è $k=n-1$
+
+Non è però una buona idea considerare modelli con ordini grandi perché si adattano troppo ai 
+dati osservati, perdendo la capacità di fornire ragionevoli previsioni di future osservazioni
+
+Questo fenomeno è generalmente chiamato **overfitting**.
