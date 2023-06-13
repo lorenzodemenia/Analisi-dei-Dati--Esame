@@ -1,0 +1,132 @@
+---
+title: "Unità 4 Esercizi"
+author: "Lorenzo Demenia"
+date: "2023-10-12"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+I dati contenuti nel file monet.csv riguardano il prezzo di vendita in milioni di dollari
+di diversi dipinti di Claude Monet. Oltre al prezzo di vendita (price) e l’identificativo
+numerico del dipinto (id), sono disponibili informazioni circa le dimensioni del dipinto
+(height e width in pollici), se il dipinto è firmato da Monet o meno (signed) e la casa d’aste
+in cui il dipinto è stato venduto (house con le tre case identificate da diversi numeri).
+
+(a) Si valuti la normalità dei prezzi di vendita dei dipinti.
+    ```{r}
+    monet <- read.csv("monet.csv")
+    library("car")
+    qqPlot(monet$price, ylab = "quantili empirici", xlab="quantili teorici",
+    main="Prezzi dipinti di Monet")
+    ```
+
+    Il grafico mostra in modo estremamente chiaro che i prezzi dei dipinti non si possono ritenere 
+    nomralmente distribuiti
+
+
+(b) Si valuti la normalità dei prezzi di vendita dei dipinti distinti a seconda se siano stati
+firmati o no da Claude Monet.
+    ```{r}
+        x <- with(monet, price[signed == 1])
+        y <- with(monet, price[signed == 0])
+
+        ## Vedimao i grafici quantile-quantile per i due gruppi 
+
+        ## il seguente comando divide la finestra grafica in una riga e due
+        ## colonne in modo da poter disegnare i due grafici appaiati
+
+        par(mfrow = c(1, 2))
+        qqPlot(x, ylab="Quantili empirici", xlab= "Quantili teorici", 
+        main= "Prezzi dipinti di Monet firmati")
+        qqPlot(y, ylab="Quantili empirici", xlab= "Quantili teorici", 
+        main= "Prezzi dipinti di Monet non firmati")
+
+        ## ritorniamo ad una finestra grafica non divisa, ovvero formata da una
+        ## riga e una colonna
+        
+        par(mfrow= c(1, 1))
+    ```
+
+    Anche i grafici quantile-quantile dei prezzi distinti a seconda della presenza della firmati
+    mostrano un'andamento fortemente non normale 
+
+
+(c) Si rivalutino i due punti precedenti dopo aver trasformato i dati su scala logaritmica.
+
+    ```{r}
+        qqPlot(log(monet$price), ylab = "quantili empirici", xlab ="quantili teorici", main="Log-prezzi dipinti di Monet")
+    ```
+
+    La trasfomrazione logaritmica ha decisamente migliorato la situazione sebbene la disposizione
+    dei punti sulle code non sia soddisfacente. 
+
+    Infine, vediamo i grafici quantile-quantile dei prezzi a seconda se i dipinti siano 
+    firmati o meno: 
+
+    ```{r}
+        par(mfrow = c(1, 2))
+        qqPlot(log(x), ylab="Quantili empirici", xlab= "Quantili teorici", 
+        main= "Log-Prezzi dipinti di Monet firmati")
+        qqPlot(log(y), ylab="Quantili empirici", xlab= "Quantili teorici", 
+        main= "Log-Prezzi dipinti di Monet non firmati")
+
+        ## ritorniamo ad una finestra grafica non divisa, ovvero formata da una
+        ## riga e una colonna
+        
+        par(mfrow= c(1, 1))
+    ```
+
+    Il grafico relativo ai dipinti non firmati ci permette di concludere che non possiamo 
+    escludere che i prezzi su scala logaritmica siano nomralmente distribuiti, mentre per i 
+    dipinti firmati gli andamenti sulle code, e in particolare su quella di sinistra, non 
+    sono del tutto soddisfacenti 
+
+(d) Si valuti se il prezzo di vendita dei dipinti firmati da Claude Monet sia significativa-
+    mente più alto del prezzo di vendita dei dipinti attribuiti a Claude Monet seppur non
+    firmati dal pittore.
+
+    Estraiamo la variabile binaria che indica se un dipinto sia firmato o meno:
+    ```{r}
+        firmato <- as.factor(monet$signed)
+        levels(firmato) <- c("No", "Sì")
+        head(firmato)
+
+    ```
+
+    Visualizziamo le distribuzioni delle due variabili: 
+    ```{r}
+        boxplot(log(monet$price)~ firmato, xlab = "Firmato?", ylab = "Prezzo [logaritmo]", col = c("steelblue", "darkorange"))
+
+    ```
+
+    Il grafico mostra che i prezzi di vendira (su scala logaritmica) sono più alti per i 
+    dipinti firmati. Valutiamo ora il sistema d'ipotesi per vedere se la differenza osservata 
+    è statisticamente significativa. 
+
+    Per prima cosa costruiamo i vettori che contengono i prezzi su scala logaritmica distinti a 
+    seconda della firma: 
+    ```{r}
+        x <- log(monet$price[firmato == "Sì"])
+        y <- log(monet$price[firmato == "No"])
+    ```
+    Procediamo con un test di tipo Z: 
+
+    ```{r}
+        library("BSDA")
+        z.test(x,y,sigma.x = sd(x), sigma.y = sd(y), alternative = "greater")
+    ```
+
+    Il valore osservato della statistica $Z$ è $z=5.99$ che corrispondere ad un livello 
+    di significatività osservato pressoché nullo ad indicare un'evidenza molto forte 
+    contro l'ipotesi nulla.
+
+(e) Si valuti se la proporzione di dipinti firmati che sono stati battuti dalla prima casa
+    d’aste (house == 1) sia diversa da quella dei dipinti firmati che sono stati battuti dalla
+    seconda casa d’aste (house == 2).
+
+    

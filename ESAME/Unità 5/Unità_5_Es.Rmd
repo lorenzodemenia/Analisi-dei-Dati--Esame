@@ -36,8 +36,6 @@ dividerla per il totale.
 A volte ci viene chiesto di valutare una tabella sulla base di una già esistente, ma sotto 
 altri parametri
 
-
-
 # 2) Valutazione Eventi
 ## 2.1) Eventi indipendenti
 ## 2.2) Eventi dipendenti
@@ -61,3 +59,16 @@ Marignali e Condizionate
 # 8) Modello di Regressione
 # 8.1) Costruzione 
 # 8.2) Valutazione 
+
+
+
+
+```{r}
+manager <- read.csv("manager.csv")
+```
+
+```{r}
+mod <- lm(salario ~ budget, data = manager)
+summary(mod)
+```
+
