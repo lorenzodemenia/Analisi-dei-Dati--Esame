@@ -1,5 +1,5 @@
 ---
-title: "Nome Cognome - Esercizio X"
+title: "Lorenzo Demenia - Esercizio 2"
 output:
   html_document: 
     df_print: paged
@@ -76,11 +76,4 @@ z <- qnorm(0.95)
 z
 t <- qt(0.95, df = 12)
 t
-
-satterthwaite_calculator <- function(n1, n2, sd1, sd2) {
-
-    v1 <- (((sd1^2) / n1) + ((sd2^2) / n2))^2
-    v2 <-  ((sd1^4) / ((n1^2) * (n1 - 1))) + ((sd2^4) / ((n2^2) * (n2 - 1)))
-    return (v1 / v2)
-}
 ```
