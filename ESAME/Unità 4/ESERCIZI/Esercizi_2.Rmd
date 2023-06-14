@@ -1,0 +1,64 @@
+---
+title: "Lorenzo Demenia"
+output:
+    html_document: 
+    df_print: paged
+    toc: true
+    toc_float: true
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+    # rows_name <- c('')
+    # cols_name <- c('')
+    # data <- c()
+    # titles <- c('','')
+    # rows_num
+    create_analyze_tabel <- function(rows_name,cols_name, cols_num, rows_num, titles, data ) {
+        table_oss <- as.table(matrix(data, nrow=rows_num))
+        colnames(table_oss) = cols_name
+        rownames(table_oss) <- rows_name
+        names(dimnames(table_oss))<- titles
+        print(table_oss)
+
+        
+        # marginale per x
+        print('marginale per x')
+        print(' ')
+        table_x <- margin.table(table_oss, 1)
+        print(table_x)
+
+        # marginale per y 
+        print('marginale per y')
+        table_y <- margin.table(table_oss, 2)
+        print(table_y)
+
+        # tabella di contingenza 
+        print('tabella di contingenza ')
+        table_att <- outer(table_x, table_y)/ sum(table_oss)
+        table_att <- as.table(table_att)
+        print(table_att)
+
+        # Chi-quadro 
+        print('Chi-quadro ')
+        chi2 <- sum((table_oss - table_att)^2/table_att)
+        print(chi2)
+
+        return (table_oss)
+    }
+```
+```{r}
+    rows_name <- c('favorevole','contrario')
+    cols_name <- c('maschio','femmina')
+    data <- c(500, 500,828, 672)
+    titles <- c('genere','opinione')
+    rows_num <- 2
+    create_analyze_tabel(rows_name,cols_name, cols_num, rows_num, titles, data )
+    
+
+```

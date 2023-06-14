@@ -94,3 +94,119 @@ knitr::opts_chunk$set(echo = TRUE)
     ```
 
 
+---
+title: "Lorenzo Demenia"
+output:
+    html_document: 
+    df_print: paged
+    toc: true
+    toc_float: true
+    number_sections: true
+---
+# Foglio 5 
+## Per creare le tabelle :
+```{r}
+    # create matrix with 4 columns and 4 rows
+    data= matrix(c(1:16), ncol=4, byrow=TRUE)
+
+    # specify the column names and row names of matrix
+    colnames(data) = c('col1','col2','col3','col4')
+    rownames(data) <- c('row1','row2','row3','row4')
+
+    # assign to table
+    final=as.table(data)
+
+    # display
+    final
+```
+## Esempio
+```{r}
+tab_oss <- as.table(matrix(c(18, 16, 16, 25, 11, 14), nrow = 2))
+names(dimnames(tab_oss)) <- c('Europa', 'Preferenza')
+# display
+plot(tab_oss, col = c("firebrick", "darkolivegreen"), 
+main = "Preferenze Europa", xlab = 'Europa', ylab = 'Preferenza' )
+
+summary(tab_oss)
+```
+
+
+## Tabella delle Frequenza : 
+
+- Europa: 
+
+    ```{r}
+    margin.europa <- margin.table(tab_oss, 1)
+    margin.europa
+    ```
+- Preferenza: 
+
+    ```{r}
+    margin.preferenza <- margin.table(tab_oss, 2)
+    margin.preferenza
+    ```
+
+## Tabella delle Frequenze attese  / contingenza: 
+    ```{r}
+        tab_att <- outer(margin.europa, margin.preferenza) / sum(tab_oss)
+        tab_att <- as.table(tab_att)
+        tab_att
+    ```
+
+## Chi quadro ($X^2$):
+    ```{r}
+        chi2 <- sum((tab_oss - tab_att)^2/tab_att)
+        chi2
+    ```
+- Livello di significativa osservato pari a, cioè sto calcolando
+    il $p-value$: 
+
+    ```{r}
+        # Bassa precisione
+        1- pchisq(chi2, df=2)
+
+        # Alta precisione
+        pchisq(chi2, df = 2, lower.tail = FALSE)
+        
+    ```
+
+## Funzione riassuntiva: 
+
+    ```{r}
+        # rows_name <- c('')
+    # cols_name <- c('')
+    # data <- c()
+    # titles <- c('','')
+    create_analyze_tabel <- function(rows_name,cols_name, cols_num, rows_num, titles, data ) {
+        table_oss <- as.table(matrix(data, nrow=rows_num))
+        colnames(table_oss) = cols_name
+        rownames(table_oss) <- rows_name
+        names(dimnames(table_oss))<- titles
+        table_oss
+
+        #Sommario
+        summary(table_oss)
+
+        # marginale per x
+        table_x <- margin.table(table_oss, 1)
+        table_x
+
+        # marginale per y 
+        table_y <- margin.table(table_oss, 2)
+        table_y
+
+        # tabella di contingenza 
+        
+        table_att <- outer(table_x, table_y)/ sum(table_oss)
+        table_att <- as.table(table_att)
+        table_att
+
+        # Chi-quadro 
+        chi2 <- sum((table_oss - table_att)^2/table_att)
+        chi2
+
+        return (table_oss)
+    }
+
+    ```
+    
