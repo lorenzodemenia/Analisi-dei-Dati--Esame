@@ -1,0 +1,337 @@
+---
+title: "Lorenzo Demenia - Esercizio 2"
+output:
+  html_document: 
+    
+    
+    toc_float: true
+    number_sections: true
+---
+```{r setup, include=FALSE}
+  knitr::opts_chunk$set(echo = TRUE)
+  library(car)
+```
+
+Questo documento va caricato in Moodle come cognome-nome-esX.Rmd dove X è il numero dell'esercizio (1, 2, 3 o 4).
+
+# Soluzione quesito 1
+
+scrivere qui la soluzione del primo quesito
+
+# Soluzione quesito 2
+
+scrivere qui la soluzione del secondo quesito
+
+# Soluzione quesito 3
+
+scrivere qui la soluzione del terzo quesito (sempre che ve ne siano tre, altrimenti cancellare questa sezione)
+
+
+# Prototipazione Regressione
+
+# Inserimento dei dati e Analizziamo
+- Leggiamo di dati e Visualizziamo: 
+```{r}
+    dataset <- read.csv('efficienza.csv')
+    # x_name <- processi 
+    # y_name <- dimensione
+    plot(processi ~ dimensione, data = dataset)
+    summary(dataset)
+```
+
+- Definiamo le osservazioni anomale: 
+```{r}
+    outliers_range <- 80
+    outliers <- which(dataset$processi > outliers_range) # processi è la x_name
+    summary(outliers)
+```
+
+# Stimiamo il modello 
+
+## Stima della retta di regressione: 
+- Normale
+
+```{r}
+    mod <- lm(processi ~ dimensione, data = dataset) 
+    plot(processi ~ dimensione , data=dataset)
+    curve(coef(mod)[1] + coef(mod)[2] * x + coef(mod)[3] * x ^ 2, from = min(dataset$processi), to = max(dataset$processi), add = TRUE, col = "blue")
+    abline(mod, col = 'red')
+    summary(mod)
+    
+```
+- Analisi con i residui: 
+```{r}
+    par(mfrow = c(1,2))
+    plot(residuals(mod) ~ dimensione, data=dataset)
+    abline(h=0, col = "red")
+    qqPlot(residuals(mod))
+    par(mfrow = c(1,1))
+```
+- Analisi senza i residui: 
+```{r}
+    mod2 <- lm(processi ~ dimensione , data = dataset, subset=-outliers) 
+    plot(processi ~ dimensione , data=dataset, subset= -outliers)
+    summary(mod2)
+    plot(processi ~ dimensione, data = dataset)
+    curve(coef(mod)[1] + coef(mod)[2] * x + coef(mod)[3] * x ^ 2, from = min(dataset$processi), to = max(dataset$processi), add = TRUE, col = "blue")
+    curve(coef(mod2)[1] + coef(mod2)[2] * x + coef(mod2)[3] * x ^ 2, from = min(dataset$processi), to = max(dataset$processi), add = TRUE, col = "green")
+    abline(mod, col = 'red')
+```
+
+```{r}
+    par(mfrow = c(1,2))
+    plot(residuals(mod2) ~ dimensione[-outliers], data=dataset)
+    abline(h=0, col = "red")
+    qqPlot(residuals(mod2))
+    par(mfrow = c(1,1))
+```
+
+## Stima Quadratica: 
+```{r}
+    mod_quad <- lm(processi ~ dimensione + I(dimensione ^ 2), data = dataset) 
+    plot(processi ~ dimensione + I(dimensione ^ 2), data=dataset)
+    curve(coef(mod_quad)[1] + coef(mod_quad)[2] * x + coef(mod_quad)[3] * x ^ 2, from = min(dataset$processi), to = max(dataset$processi), add = TRUE, col = "blue")
+    summary(mod_quad)
+    
+```
+- Analisi con i residui: 
+```{r}
+    par(mfrow = c(1,2))
+    plot(residuals(mod_quad) ~ dimensione, data=dataset)
+    abline(h=0, col = "red")
+    qqPlot(residuals(mod_quad))
+    par(mfrow = c(1,1))
+```
+- Analisi senza i residui: 
+```{r}
+    mod_quad_2 <- lm(processi ~ dimensione + I(dimensione ^ 2), data = dataset, subset=-outliers) 
+    plot(processi ~ dimensione + I(dimensione ^ 2), data=dataset, subset= -outliers)
+    summary(mod_quad_2)
+    plot(processi ~ dimensione, data = dataset)
+    curve(coef(mod_quad)[1] + coef(mod_quad)[2] * x + coef(mod_quad)[3] * x ^ 2, from = min(dataset$processi), to = max(dataset$processi), add = TRUE, col = "blue")
+    curve(coef(mod_quad_2)[1] + coef(mod_quad_2)[2] * x + coef(mod_quad_2)[3] * x ^ 2, from = min(dataset$processi), to = max(dataset$processi), add = TRUE, col = "green")
+    
+```
+
+```{r}
+    par(mfrow = c(1,2))
+    plot(residuals(mod_quad_2) ~ dimensione[-outliers], data=dataset)
+    abline(h=0, col = "red")
+    qqPlot(residuals(mod_quad_2))
+    par(mfrow = c(1,1))
+```
+## Stima Cubica: 
+```{r}
+    mod_cubica <- lm(processi ~ dimensione + I(dimensione ^ 3), data = dataset) 
+    plot(processi ~ dimensione + I(dimensione ^ 2), data=dataset)
+    curve(coef(mod_cubica)[1] + coef(mod_cubica)[2] * x + coef(mod_cubica)[3] * x ^ 2, from = min(dataset$processi), to = max(dataset$processi), add = TRUE, col = "blue")
+    summary(mod_cubica)
+    
+```
+- Analisi con i residui: 
+```{r}
+    par(mfrow = c(1,2))
+    plot(residuals(mod_cubica) ~ dimensione, data=dataset)
+    abline(h=0, col = "red")
+    qqPlot(residuals(mod_cubica))
+    par(mfrow = c(1,1))
+```
+- Analisi senza i residui: 
+```{r}
+    mod_cubica_2 <- lm(processi ~ dimensione + I(dimensione ^ 3), data = dataset, subset=-outliers) 
+    plot(processi ~ dimensione + I(dimensione ^ 3), data=dataset, subset= -outliers)
+    summary(mod_cubica_2)
+    plot(processi ~ dimensione, data = dataset)
+    curve(coef(mod_cubica)[1] + coef(mod_cubica)[2] * x + coef(mod_cubica)[3] * x ^ 2, from = min(dataset$processi), to = max(dataset$processi), add = TRUE, col = "blue")
+    curve(coef(mod_cubica_2)[1] + coef(mod_cubica_2)[2] * x + coef(mod_cubica_2)[3] * x ^ 2, from = min(dataset$processi), to = max(dataset$processi), add = TRUE, col = "green")
+    
+```
+
+```{r}
+    par(mfrow = c(1,2))
+    plot(residuals(mod_cubica_2) ~ dimensione[-outliers], data=dataset)
+    abline(h=0, col = "red")
+    qqPlot(residuals(mod_cubica_2))
+    par(mfrow = c(1,1))
+```
+
+
+## Stima logaritmica: 
+
+### Per l'asse x : 
+  ```{r}
+      mod_logaritmica_x <- lm(log(processi) ~ dimensione, data = dataset) 
+      plot(log(processi) ~ dimensione, data=dataset)
+      abline(mod_logaritmica_x, col = "red")
+      summary(mod_logaritmica_x)
+  ```
+- Analisi con i residui
+```{r}
+    par(mfrow = c(1,2))
+    plot(residuals(mod_logaritmica_x) ~ dimensione, data=dataset)
+    abline(h=0, col = "red")
+    qqPlot(residuals(mod_logaritmica_x))
+```
+- Analisi senza i residui: 
+```{r}
+    mod_logaritmica_x2 <- lm(log(processi) ~ dimensione , data = dataset, subset=-outliers) 
+    plot(log(processi) ~ dimensione , data=dataset, subset= -outliers)
+    summary(mod_logaritmica_x2)
+    plot(log(processi) ~ dimensione, data = dataset)
+    curve(coef(mod_logaritmica_x)[1] + coef(mod_logaritmica_x)[2] * x + coef(mod_logaritmica_x)[3] * x ^ 2, from = min(dataset$processi), to = max(dataset$processi), add = TRUE, col = "blue")
+    curve(coef(mod_logaritmica_x2)[1] + coef(mod_logaritmica_x2)[2] * x + coef(mod_logaritmica_x2)[3] * x ^ 2, from = min(dataset$processi), to = max(dataset$processi), add = TRUE, col = "green")
+    abline(mod_logaritmica_x, col = "red")
+```
+
+```{r}
+    par(mfrow = c(1,2))
+    plot(residuals(mod_logaritmica_x2) ~ dimensione[-outliers], data=dataset)
+    abline(h=0, col = "red")
+    qqPlot(residuals(mod_logaritmica_x2))
+    par(mfrow = c(1,1))
+```
+### Per l'asse y : 
+  ```{r}
+      mod_logaritmica_y <- lm(processi ~ log(dimensione), data = dataset) 
+      plot(processi ~ log(dimensione), data=dataset)
+      abline(mod_logaritmica_y, col = "red")
+      summary(mod_logaritmica_y)
+  ```
+- Analisi con i residui
+```{r}
+    par(mfrow = c(1,2))
+    plot(residuals(mod_logaritmica_y) ~ dimensione, data=dataset)
+    abline(h=0, col = "red")
+    qqPlot(residuals(mod_logaritmica_y))
+```
+- Analisi senza i residui: 
+```{r}
+    mod_logaritmica_y2 <- lm(processi ~ log(dimensione) , data = dataset, subset=-outliers) 
+    plot(processi ~ log(dimensione), data=dataset, subset= -outliers)
+    summary(mod_logaritmica_y2)
+    plot(processi ~ log(dimensione), data = dataset)
+    curve(coef(mod_logaritmica_y)[1] + coef(mod_logaritmica_y)[2] * x + coef(mod_logaritmica_y)[3] * x ^ 2, from = min(dataset$processi), to = max(dataset$processi), add = TRUE, col = "blue")
+    curve(coef(mod_logaritmica_y2)[1] + coef(mod_logaritmica_y2)[2] * x + coef(mod_logaritmica_y2)[3] * x ^ 2, from = min(dataset$processi), to = max(dataset$processi), add = TRUE, col = "green")
+    abline(mod_logaritmica_y, col = "red")
+```
+
+```{r}
+    par(mfrow = c(1,2))
+    plot(residuals(mod_logaritmica_y2) ~ dimensione[-outliers], data=dataset)
+    abline(h=0, col = "red")
+    qqPlot(residuals(mod_logaritmica_y2))
+    par(mfrow = c(1,1))
+```
+
+### Per entrambi gli assi: 
+  ```{r}
+      mod_logaritmica <- lm(log(processi) ~ log(dimensione), data = dataset) 
+      plot(log(processi) ~ log(dimensione), data=dataset)
+      abline(mod_logaritmica, col = "red")
+      summary(mod_logaritmica)
+  ```
+- Analisi con i residui
+```{r}
+    par(mfrow = c(1,2))
+    plot(residuals(mod_logaritmica) ~ dimensione, data=dataset)
+    abline(h=0, col = "red")
+    qqPlot(residuals(mod_logaritmica))
+```
+- Analisi senza i residui: 
+```{r}
+    mod_logaritmica2 <- lm(log(processi) ~ log(dimensione) , data = dataset, subset=-outliers) 
+    plot(log(processi) ~ log(dimensione), data=dataset, subset= -outliers)
+    summary(mod_logaritmica2)
+    plot(log(processi) ~ log(dimensione), data = dataset)
+    curve(coef(mod_logaritmica)[1] + coef(mod_logaritmica)[2] * x + coef(mod_logaritmica)[3] * x ^ 2, from = min(dataset$processi), to = max(dataset$processi), add = TRUE, col = "blue")
+    curve(coef(mod_logaritmica2)[1] + coef(mod_logaritmica2)[2] * x + coef(mod_logaritmica2)[3] * x ^ 2, from = min(dataset$processi), to = max(dataset$processi), add = TRUE, col = "green")
+    abline(mod_logaritmica, col = "red")
+```
+
+```{r}
+    par(mfrow = c(1,2))
+    plot(residuals(mod_logaritmica2) ~ dimensione[-outliers], data=dataset)
+    abline(h=0, col = "red")
+    qqPlot(residuals(mod_logaritmica2))
+    par(mfrow = c(1,1))
+```
+### Unione delle tre tipologie più quella classica, quadratica e Cubica: 
+
+```{r}
+    par(mfrow = c(2,2))
+    mod_logaritmica <- lm(log(processi) ~ log(dimensione), data = dataset) 
+    plot(processi ~ dimensione, data=dataset)
+    plot(processi ~ dimensione + I(dimensione ^ 2), data=dataset)
+    plot(processi ~ dimensione + I(dimensione ^ 3), data=dataset)
+    plot(processi ~ log(dimensione), data=dataset)
+    plot(log(processi) ~ dimensione, data=dataset)
+    plot(log(processi) ~ log(dimensione), data=dataset)
+    par(mfrow = c(1,1))
+    summary(mod_logaritmica)
+```
+
+# Calcolo dell'intervallo di Previsione 
+
+```{r}
+predict(mod2, newdata = data.frame(dimensione = 10), interval = "prediction") # dove 10 è la dimenisone che vogliamo controllare
+```
+
+
+
+
+
+**CANCELLARE LE SEGUENTI RIGHE!**
+
+**Qualche comando LaTeX utile per scrivere le formule** 
+
+Formule nel testo: $\sin(\pi x)$
+
+Formule su righe separate:
+$$
+\sin(\pi x)
+$$
+
+
+Momenti:
+$$
+\mu_k, E(X^k), M_k, m_k, \bar{X}, \bar{x}, \sigma^2, Var(X), S^2
+$$
+Stimatori e stime:
+$$
+\hat \theta,  \hat \mu, \hat \sigma^2, \hat \lambda 
+$$
+$$
+\tilde \theta, \tilde \mu, \tilde \sigma^2, \tilde \lambda
+$$
+Verosimiglianza:
+$$
+L(\theta), \ell(\theta), \ell'(\theta), \ell''(\theta)
+$$
+Frazioni:
+$$
+\frac{1}{\sqrt{2}} X_i, \frac{X_i}{Y_i}
+$$
+
+Sommatorie: 
+$$
+\sum_{i=1}^n X_i, \sum_{i=1}^n \log X_i, \sum_{i=1}^n \sqrt{X_i}, \sum_{i=1}^n \frac{X_i}{Y_i}
+$$
+Integrali:
+$$
+\int_{0}^1 f(x) dx, \int_{a}^{\infty} f(x) dx, \int_{-\infty}^{\infty} f(x) dx
+$$
+
+
+
+**Come scrivere i comandi R**
+
+```{r, error = TRUE}
+2 * 3 / log(1.2)
+sin(2 * pi / 20)
+a <- 2 * c(1, 2)
+a
+z <- qnorm(0.95)
+z
+t <- qt(0.95, df = 12)
+t
+```

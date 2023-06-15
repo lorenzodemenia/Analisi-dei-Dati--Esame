@@ -1,0 +1,199 @@
+---
+title: "Alberto Tomasin - Esercizio 4"
+output:
+  html_document: 
+    df_print: paged
+    toc: true
+    toc_float: true
+    number_sections: true
+---
+
+
+# Soluzione quesito 1
+
+Carichiamo il file
+```{r,error=TRUE}
+efficienza <- read.csv("efficienza.csv")
+```
+
+Mostrimo come varia il numero dei processi in funzione della dimensione
+
+
+```{r, error=TRUE}
+plot(processi ~ dimensione, data = efficienza)
+```
+
+
+Possiamo notare che i dati hanno un andamento decrescente, ad eccezione di un gruppo di elementi che, a parità di dimensioni, assume valori anomali.
+Questi elementi sono
+
+```{r, error=TRUE}
+which(efficienza$processi > 70)
+```
+
+Proviamo a costruire un modello quadratico
+
+```{r, error=TRUE}
+mod <- lm(processi ~ dimensione + I(dimensione ^ 2), data = efficienza)
+summary(mod)
+```
+
+Notiamo subito che i coefficienti assumono valori non accettabili, in più $R^2$ è molto piccolo.
+Proviamo allora a rimuovere questi elementi.
+
+```{r, error=TRUE}
+outliers <- which(efficienza$processi > 70)
+mod <- lm(processi ~ dimensione + I(dimensione^2), data = efficienza, subset = -outliers)
+summary(mod)
+```
+
+Rimuovendo gli elementi estranei abbiamo un modello con dei coefficienti di regressione significativi, inoltre $R^2$ è approssimativamente pari a 0.88
+
+Proviamo ora a mostrare graficamente i dati
+
+
+```{r, error=TRUE}
+plot(processi ~ dimensione, data = efficienza)
+curve(
+  mod$coefficients[1] + x * mod$coefficients[2] + x^2 * mod$coefficients[3],
+  col="blue", 
+  from = min(efficienza$processi), 
+  to = max(efficienza$processi), 
+  add=TRUE
+)
+```
+
+Anche i residui sono accettabili
+```{r, error=TRUE}
+library(car)
+par(mfrow=c(1,2))
+
+plot(mod$residuals ~ dimensione[-outliers], data = efficienza)
+abline(h=0, col="red")
+
+qqPlot(mod$residuals)
+```
+
+Siamo soddisfatti del modello, in quanto esso è in grado di spiegare circa l' 88% della variabilità del numero dei processi. elaborati
+
+
+
+# Soluzione quesito 2
+
+[1] 10 Gigabyte
+```{r, error=TRUE}
+predict(mod,
+        newdata = data.frame(dimensione=10),
+        level = .95,
+        interval = "predict"
+      )
+```
+
+L'intervallo di previsione del 95% indica che la dimensione attesa è di circa 34 Gigabyte con un errore di 13 Gigabyte
+
+[2] 15 Gigabyte
+```{r, error=TRUE}
+predict(mod,
+        newdata = data.frame(dimensione=15),
+        level = .95,
+        interval = "predict"
+      )
+```
+
+L’intervallo di previsione del 95% indica che la dimensione attesa è di circa 14 Gigabyte con un errore di 13 Gigabyte
+
+**CANCELLARE LE SEGUENTI RIGHE!**
+
+**Qualche comando LaTeX utile per scrivere le formule** 
+
+Formule nel testo: $\sin(\pi x)$
+
+Formule su righe separate:
+$$
+\sin(\pi x)
+$$
+
+
+Momenti:
+$$
+\mu_k, E(X^k), M_k, m_k, \bar{X}, \bar{x}, \sigma^2, Var(X), S^2
+$$
+Stimatori e stime:
+$$
+\hat \theta,  \hat \mu, \hat \sigma^2, \hat \lambda 
+$$
+$$
+\tilde \theta, \tilde \mu, \tilde \sigma^2, \tilde \lambda
+$$
+Verosimiglianza:
+$$
+L(\theta), \ell(\theta), \ell'(\theta), \ell''(\theta)
+$$
+Frazioni:
+$$
+\frac{1}{\sqrt{2}} X_i, \frac{X_i}{Y_i}
+$$
+
+Sommatorie: 
+$$
+\sum_{i=1}^n X_i, \sum_{i=1}^n \log X_i, \sum_{i=1}^n \sqrt{X_i}, \sum_{i=1}^n \frac{X_i}{Y_i}
+$$
+Integrali:
+$$
+\int_{0}^1 f(x) dx, \int_{a}^{\infty} f(x) dx, \int_{-\infty}^{\infty} f(x) dx
+$$
+
+
+
+Per calcolare **distribuzione di frequenza** di $X$ condizionato a $Y$ devo dividere la cella $X$ per la riga $Y$
+
+La **distribuzione marginale** relativa a $X$ corrisponde al totale $X$ diviso il totale della tabella
+
+Il grado / livello di **significatività** corrisponde al *p-value*
+
+Per trovare le **frequenze attese** faccio *as.table(outer(margin1, margin2) / sum(tabella.contingenza))*
+
+
+
+*valutare l'ipotesi di indipendenza / capire se le variabili sono indipendenti* 
+
+Sotto l’ipotesi nulla di indipendenza fra le due variabili, la statistica $χ2$ si distribuisce come una variabile $χ2$ con $n$ gradi di libertà. Il test di indipendenza $χ2$ porta al rifiuto dell’ipotesi nulla al livello di significatività del % se assume valori superiori a *qchisq(1-%, df)* Quindi, possiamo rifiutare l’ipotesi nulla al livello di significatività del %, ovvero concludiamo che le due variabili sono dipendenti.
+
+*predict(mod, newdata=data.frame(budget=10), level=.99, interval="prediction”)*. L’intevallo di confidenza del 99% indica che lo stipendio atteso è approssimativamente 109 mila dollari con un errore di circa 38 mila dollari
+
+
+Quando provo a creare un modello, se lo faccio quadratico o rimuovo dei valori o entrambi, è importante guardare gli *** e dire: In questo modello i coefficienti di regressione sono significativi, in più il coefficiente $R^2$ ha un valore pari a
+
+
+**Come scrivere i comandi R**
+
+```{r, error = TRUE}
+2 * 3 / log(1.2)
+sin(2 * pi / 20)
+a <- 2 * c(1, 2)
+a
+z <- qnorm(0.95)
+z
+t <- qt(0.95, df = 12)
+t
+```
+
+
+```{r, error=TRUE}
+# mod <- lm(y ~ x, data=csv) modello lineare
+# mod <- lm(y ~ x + I(x^2), data=csv) modello quadratico
+# mod <- lm(y ~ x, data=csv, subset = -outliers) rimuovo elementi
+# outlier <- which/which.max/wich.min (csv$nomecolonna) outlier
+# summary(mod) riassunto modello
+# plot(y ~ x, data=csv) mostro i dati
+# plot(mod$residuals ~ x, data=csv) mostro i residui
+# plot(mod$residuals ~ x[-outliers], data=csv) mostro i residui nel caso in cui ho tolto elementi
+# abline(h=0, col = "red")
+# abline(mod, col="blue") disegno una linea ( nel mio caso la retta di regressione )
+# curve(mod$coefficients[1] + x * mod$coefficients[1] + x^2 * mod$coefficients[3], from = min(csv$x), to=max(csv$x), add=TRUE)
+# library(car)
+# par(mfrow=c(1,2))
+# qqPlot(mod$residuals)
+```
+se i residui si distribuiscono casualmente attorno allo 0 allora il modello è valido
+ 

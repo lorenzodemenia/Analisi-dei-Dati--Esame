@@ -1,10 +1,20 @@
+
+n <- 200
+x <- 110/200
+y <- 90 /200
+
+
+
 z <- qnorm(0.975)
-0.25 + c(-1, 1)* z * sqrt((0.25*(1-0.25))/55)
 
-tab_oss <- as.table(matrix(c(18, 16, 16, 25, 11, 14), nrow = 2))
-names(dimnames(tab_oss)) <- c('Europa', 'Preferenza')
-# display
-plot(tab_oss, col = c("firebrick", "darkolivegreen"), 
-main = "Preferenze Europa", xlab = 'Europa', ylab = 'Preferenza' )
+int <- y + c(-1, 1)* z* sqrt(x * (1-x)/200)
 
-summary(tab_oss)
+x2 <- 105/250
+x2
+
+pooled <- (90+ 145) / 450
+
+stat <- (x - x2) / sqrt(pooled*(1-pooled)*(1/200+1/250))
+stat 
+
+pnorm(stat)

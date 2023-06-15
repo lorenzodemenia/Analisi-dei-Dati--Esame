@@ -10,6 +10,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(car)
 ```
 
 
@@ -20,45 +21,81 @@ knitr::opts_chunk$set(echo = TRUE)
     # titles <- c('','')
     # rows_num
     create_analyze_tabel <- function(rows_name,cols_name, cols_num, rows_num, titles, data ) {
+        
         table_oss <- as.table(matrix(data, nrow=rows_num))
         colnames(table_oss) = cols_name
         rownames(table_oss) <- rows_name
         names(dimnames(table_oss))<- titles
         print(table_oss)
 
+        print('***********************************************')
+        # marginale per x / frequenze attese per x
+        print('----------------marginale per x----------------')
         
-        # marginale per x
-        print('marginale per x')
-        print(' ')
         table_x <- margin.table(table_oss, 1)
         print(table_x)
 
-        # marginale per y 
-        print('marginale per y')
+        print('***********************************************')
+        # marginale per y / frequenze attese per y
+        print('---------------marginale per y-----------------')
         table_y <- margin.table(table_oss, 2)
         print(table_y)
 
-        # tabella di contingenza 
-        print('tabella di contingenza ')
+        print('***********************************************')
+        # tabella di contingenza / Frequenza stimate
+        print('------------tabella di contingenza------------')
         table_att <- outer(table_x, table_y)/ sum(table_oss)
         table_att <- as.table(table_att)
         print(table_att)
 
-        # Chi-quadro 
-        print('Chi-quadro ')
-        chi2 <- sum((table_oss - table_att)^2/table_att)
-        print(chi2)
+        print('***********************************************')
+        # Test di indipedenza 
+        return (summary(table_oss))
+    }
 
-        return (table_oss)
+    chi2_function <- function(df, percentuale, chi2){
+        
+        # Livello di significatività Alta precisione
+        lv<- pchisq(chi2, df = df, lower.tail = FALSE)
+
+        # Statistica Chi-sq
+        statistica <- qchisq(percentuale, df=df)
+
+        # Creazione Tabella 
+        tab_chisq <- as.table(matrix(c(lv, statistica), nrow=2))
+        colnames(tab_chisq)<- c('Risultato')
+        rownames(tab_chisq)<- c('Livello Sign.', 'Statistica Chi-Sq')
+        names(dimnames(tab_chisq))<- c(' ','Chi-Square table')
+
+        return (tab_chisq)
+    }
+
+    z_prop_calculator <- function(n,percent, p_mean){
+        return (p_mean + c(-1,1) * percent* sqrt((p_mean* (1- p_mean))/n))
     }
 ```
 ```{r}
-    rows_name <- c('favorevole','contrario')
-    cols_name <- c('maschio','femmina')
-    data <- c(500, 500,828, 672)
-    titles <- c('genere','opinione')
-    rows_num <- 2
-    create_analyze_tabel(rows_name,cols_name, cols_num, rows_num, titles, data )
-    
+    efficienza <- read.csv("efficienza.csv")
 
+    plot(processi ~ dimensione, data = efficienza)
+
+    outliers <- which(efficienza$processi > 80)
+    
+    mod <- lm(processi ~ dimensione + I(dimensione^2), data = efficienza)
+    summary(mod)
+
+    mod2 <- lm(processi ~ dimensione + I(dimensione^2), data = efficienza, subset = -outliers)
+
+    summary(mod2)
+
+    plot(processi ~ dimensione, data = efficienza)
+
+    curve(coef(mod)[1]+ coef(mod)[2]*x + coef(mod)[3]*x ^2, 
+    from = min(efficienza$processi), to = max(efficienza$processi), add = TRUE)
+
+
+    curve(coef(mod2)[1] + coef(mod2)[2] * x + coef(mod2)[3] * x ^ 2, 
+    from = min(efficienza$processi), to = max(efficienza$processi),
+    add = TRUE, col = "red")
+    
 ```

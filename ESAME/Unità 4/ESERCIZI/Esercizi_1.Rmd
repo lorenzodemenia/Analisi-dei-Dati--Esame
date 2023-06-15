@@ -1,0 +1,47 @@
+---
+title: "Lorenzo Demenia - Esercizio 3"
+output:
+  html_document: 
+    df_print: paged
+    toc: true
+    toc_float: true
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(car)
+```
+```{r}
+    
+```
+# Es.1 
+
+```{r}
+    efficienza <- read.csv('efficienza.csv')
+
+    plot(processi ~ dimensione, data = efficienza)
+
+    mod <- lm(processi ~ dimensione, data = efficienza)
+    summary(mod)
+
+    outliers <- which(efficienza$processi > 80)
+    abline(mod, col='red')
+    par(mfrow = c(2,2))
+
+    plot(log(processi) ~ dimensione, data = efficienza)
+    plot(processi ~ log(dimensione), data = efficienza)
+    
+    mod2 <- lm(processi ~ dimensione + I(dimensione^2), data = efficienza, subset=-outliers)
+    summary(mod2)
+    par(mfrow = c(1,1))
+    par(mfrow = c(1, 2))
+    plot(residuals(mod2) ~ dimensione[-outliers], data = efficienza)
+    abline(h = 0, col = "red")
+    qqPlot(residuals(mod2))
+
+
+
+
+
+```

@@ -58,6 +58,15 @@ knitr::opts_chunk$set(echo = TRUE)
             return (x / var)
         }
     ```
+- proporzione con dimensione campionaria grande: 
+    ```{r}
+        p <- 0
+        p_mean <- 0 
+        percent <-.0
+        z_prop_calculator <- function(n,percent, p_mean){
+            return (p_mean + c(-1,1) * percent* sqrt((p_mean* (1- p_mean))/n))
+        }
+    ```
 ## 1.2) Statistica T 
 
 - Differenza di due medie con varianze ignote non uguali $H_0 :\mu_x - \mu_y =D$
@@ -169,6 +178,33 @@ summary(tab_oss)
         pchisq(chi2, df = 2, lower.tail = FALSE)
         
     ```
+- Statustica $X^2$:
+
+    ```{r}
+        # Vogliamo calcolarla al 5%
+        qchisq(0.95, df=2)
+        
+    ```
+- Tabella Riassuntiva 
+    ```{r}
+        chi2_function <- function(df, percentuale, chi2){
+        
+        # Livello di significatività Alta precisione
+        lv<- pchisq(chi2, df = df, lower.tail = FALSE)
+
+        # Statistica Chi-sq
+        statistica <- qchisq(percentuale, df=df)
+
+        # Creazione Tabella 
+        tab_chisq <- as.table(matrix(c(lv, statistica), nrow=2))
+        colnames(tab_chisq)<- c('Risultato')
+        rownames(tab_chisq)<- c('Livello Sign.', 'Statistica Chi-Sq')
+        names(dimnames(tab_chisq))<- c(' ','Chi-Square table')
+
+        return (tab_chisq)
+    }
+        
+    ```
 
 ## Funzione riassuntiva: 
 
@@ -177,36 +213,63 @@ summary(tab_oss)
     # cols_name <- c('')
     # data <- c()
     # titles <- c('','')
+    # rows_num
     create_analyze_tabel <- function(rows_name,cols_name, cols_num, rows_num, titles, data ) {
         table_oss <- as.table(matrix(data, nrow=rows_num))
         colnames(table_oss) = cols_name
         rownames(table_oss) <- rows_name
         names(dimnames(table_oss))<- titles
-        table_oss
+        print(table_oss)
 
-        #Sommario
-        summary(table_oss)
-
+        print('***********************************************')
         # marginale per x
-        table_x <- margin.table(table_oss, 1)
-        table_x
-
-        # marginale per y 
-        table_y <- margin.table(table_oss, 2)
-        table_y
-
-        # tabella di contingenza 
+        print('----------------marginale per x----------------')
         
+        table_x <- margin.table(table_oss, 1)
+        print(table_x)
+
+        print('***********************************************')
+        # marginale per y 
+        print('---------------marginale per y-----------------')
+        table_y <- margin.table(table_oss, 2)
+        print(table_y)
+
+        print('***********************************************')
+        # tabella di contingenza 
+        print('------------tabella di contingenza------------')
         table_att <- outer(table_x, table_y)/ sum(table_oss)
         table_att <- as.table(table_att)
-        table_att
+        print(table_att)
 
+        print('***********************************************')   
         # Chi-quadro 
+        print('-----------------Chi-quadro-------------------')
         chi2 <- sum((table_oss - table_att)^2/table_att)
-        chi2
+        print(chi2)
 
-        return (table_oss)
+        return (summary(table_oss))
     }
-
     ```
-    
+
+## Regressione: 
+
+- Stimiamo il modello di Regressione con lm: 
+    ```{r}
+        manager <- read.csv('manager.csv')
+
+        mod <- lm(salario ~ budget, data = manager)
+        summary(mod)
+    ```
+- Per ottenere un'intervallo di previsione si usa predict: 
+    ```{r}
+        manager <- read.csv('manager.csv')
+
+        mod <- predict(salario ~ budget, data = manager)
+        summary(mod)
+    ```
+
+- Prototipazione di analis : 
+    ```{r}
+        
+    ```
+
