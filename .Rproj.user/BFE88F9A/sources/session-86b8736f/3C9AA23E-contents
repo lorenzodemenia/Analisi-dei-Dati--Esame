@@ -1,0 +1,328 @@
+---
+title: "Lorenzo Demenia - Esercizio 3"
+output:
+  html_document: 
+    df_print: paged
+    toc: true
+    toc_float: true
+    number_sections: true
+---
+
+Questo documento va caricato in Moodle come cognome-nome-esX.Rmd dove X è il numero dell'esercizio (1, 2, 3 o 4).
+
+# Soluzione quesito 1
+
+scrivere qui la soluzione del primo quesito
+
+# Soluzione quesito 2
+
+scrivere qui la soluzione del secondo quesito
+
+# Soluzione quesito 3
+
+scrivere qui la soluzione del terzo quesito (sempre che ve ne siano tre, altrimenti cancellare questa sezione)
+
+**CANCELLARE LE SEGUENTI RIGHE!**
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# 2) Verifica delle Ipotesi 
+
+## 1.1) Statistica Z
+
+- Caso generico $H_0 :\theta =\theta_0$ : 
+    ```{r}
+        theta <- 0 
+        theta_hat <- 0
+        standard_error <- 0
+        z_generic_ip_case_calculator <- function(theta, theta_hat, standard_error){
+            return ((theta_hat - theta)/ standard_error)
+        }
+    ```
+- media con varianza nota $H_0 :\mu =\mu_0$: 
+    ```{r}
+        nx <- 0
+        ny <- 0
+        mean_x <- 0
+        mean_y <- 0 
+        elemx <- 0 # Può essere o la varianza di x, se nota, oppure l'sdx
+        elemy <- 0 # Può essere o la varianza di y, se nota, oppure l'sdy
+        m <- 0 # Se non hai la varianza metti 1 se invece c'è l'hai metti 0 
+
+        z_diff_ip_calculator <- function(nx, ny, mean_x, mean_y, elemx, elemy, m){
+            if( m==0){
+                x <- sqrt(((elemx)/nx)+((elemy)/ny))    
+            }else{
+                x <- sqrt(((elemx^2)/nx)+((elemy^2)/ny))
+            }
+            return ((mean_x- mean_y)/ x)
+        }
+    ```
+- differenza di due medie con varianze note e ignote: stessa formula in R ma basta su una metti lo Standard Error (Varianze ignote),
+    invece sull'altra la Varianza (Varianza Nota)
+
+    ```{r}
+        n <- 0
+        mu <- 0 
+        mean <- 0
+        elem <- 0
+        z_mean_var_ip_calculator <- function(n, mu, var, mean){
+            x <- sqrt(n) * (mean - mu)
+            return (x / var)
+        }
+    ```
+- proporzione con dimensione campionaria grande: 
+    ```{r}
+        p <- 0
+        p_mean <- 0 
+        percent <-.0
+        z_prop_calculator <- function(n,percent, p_mean){
+            return (p_mean + c(-1,1) * percent* sqrt((p_mean* (1- p_mean))/n))
+        }
+    ```
+## 1.2) Statistica T 
+
+- Differenza di due medie con varianze ignote non uguali $H_0 :\mu_x - \mu_y =D$
+    ```{r}
+        mean_x <- 0 
+        mean_y <- 0
+        sd1 <- 0
+        sd2 <- 0
+        n1 <- 0
+        n2 <- 0
+        
+        t_diff_mean_no_var_ip_calculator <- function(mean_x, mean_y, sd1, sd2, n1, n2){
+            x1 <- mean_x - mean_y
+            x2 <- sqrt(((sd1^2) / n1) + ((sd2^2) / n2))
+
+            return (x1 / x2)
+        }
+
+    ```
+    - gradi di libertà (formula di Satterthwaite): 
+    ```{r}
+        mean_x <- 0 
+        mean_y <- 0
+        sd1 <- 0
+        sd2 <- 0
+        n1 <- 0
+        n2 <- 0
+        t_satterthwaite_ip_calculator <- function(n1, n2, sd1, sd2) {
+
+            v1 <- (((sd1^2) / n1) + ((sd2^2) / n2))^2
+            v2 <-  ((sd1^4) / ((n1^2)*(n1-1))) + ((sd2^4)/ ((n2^2)*(n2-1)))
+            return (v1 / v2)
+        }
+    ```
+
+
+---
+title: "Lorenzo Demenia"
+output:
+    html_document: 
+    df_print: paged
+    toc: true
+    toc_float: true
+    number_sections: true
+---
+# Foglio 5 
+## Per creare le tabelle :
+```{r}
+    # create matrix with 4 columns and 4 rows
+    data= matrix(c(1:16), ncol=4, byrow=TRUE)
+
+    # specify the column names and row names of matrix
+    colnames(data) = c('col1','col2','col3','col4')
+    rownames(data) <- c('row1','row2','row3','row4')
+
+    # assign to table
+    final=as.table(data)
+
+    # display
+    final
+```
+## Esempio
+```{r}
+tab_oss <- as.table(matrix(c(18, 16, 16, 25, 11, 14), nrow = 2))
+names(dimnames(tab_oss)) <- c('Europa', 'Preferenza')
+# display
+plot(tab_oss, col = c("firebrick", "darkolivegreen"), 
+main = "Preferenze Europa", xlab = 'Europa', ylab = 'Preferenza' )
+
+summary(tab_oss)
+```
+
+
+## Tabella delle Frequenza : 
+
+- Europa: 
+
+    ```{r}
+    margin.europa <- margin.table(tab_oss, 1)
+    margin.europa
+    ```
+- Preferenza: 
+
+    ```{r}
+    margin.preferenza <- margin.table(tab_oss, 2)
+    margin.preferenza
+    ```
+
+## Tabella delle Frequenze attese  / contingenza: 
+    ```{r}
+        tab_att <- outer(margin.europa, margin.preferenza) / sum(tab_oss)
+        tab_att <- as.table(tab_att)
+        tab_att
+    ```
+
+## Chi quadro ($X^2$):
+    ```{r}
+        chi2 <- sum((tab_oss - tab_att)^2/tab_att)
+        chi2
+    ```
+- Livello di significativa osservato pari a, cioè sto calcolando
+    il $p-value$: 
+
+    ```{r}
+        # Bassa precisione
+        1- pchisq(chi2, df=2)
+
+        # Alta precisione
+        pchisq(chi2, df = 2, lower.tail = FALSE)
+        
+    ```
+- Statustica $X^2$:
+
+    ```{r}
+        # Vogliamo calcolarla al 5%
+        qchisq(0.95, df=2)
+        
+    ```
+- Tabella Riassuntiva 
+    ```{r}
+        chi2_function <- function(df, percentuale, chi2){
+        
+        # Livello di significatività Alta precisione
+        lv<- pchisq(chi2, df = df, lower.tail = FALSE)
+
+        # Statistica Chi-sq
+        statistica <- qchisq(percentuale, df=df)
+
+        # Creazione Tabella 
+        tab_chisq <- as.table(matrix(c(lv, statistica), nrow=2))
+        colnames(tab_chisq)<- c('Risultato')
+        rownames(tab_chisq)<- c('Livello Sign.', 'Statistica Chi-Sq')
+        names(dimnames(tab_chisq))<- c(' ','Chi-Square table')
+
+        return (tab_chisq)
+    }
+        
+    ```
+
+## Funzione riassuntiva: 
+
+    ```{r}
+        # rows_name <- c('')
+    # cols_name <- c('')
+    # data <- c()
+    # titles <- c('','')
+    # rows_num
+    create_analyze_tabel <- function(rows_name,cols_name, cols_num, rows_num, titles, data ) {
+        table_oss <- as.table(matrix(data, nrow=rows_num))
+        colnames(table_oss) = cols_name
+        rownames(table_oss) <- rows_name
+        names(dimnames(table_oss))<- titles
+        print(table_oss)
+
+        print('***********************************************')
+        # marginale per x
+        print('----------------marginale per x----------------')
+        
+        table_x <- margin.table(table_oss, 1)
+        print(table_x)
+
+        print('***********************************************')
+        # marginale per y 
+        print('---------------marginale per y-----------------')
+        table_y <- margin.table(table_oss, 2)
+        print(table_y)
+
+        print('***********************************************')
+        # tabella di contingenza 
+        print('------------tabella di contingenza------------')
+        table_att <- outer(table_x, table_y)/ sum(table_oss)
+        table_att <- as.table(table_att)
+        print(table_att)
+
+        print('***********************************************')   
+        # Chi-quadro 
+        print('-----------------Chi-quadro-------------------')
+        chi2 <- sum((table_oss - table_att)^2/table_att)
+        print(chi2)
+
+        return (summary(table_oss))
+    }
+    ```
+
+
+
+
+**Qualche comando LaTeX utile per scrivere le formule** 
+
+Formule nel testo: $\sin(\pi x)$
+
+Formule su righe separate:
+$$
+\sin(\pi x)
+$$
+
+
+Momenti:
+$$
+\mu_k, E(X^k), M_k, m_k, \bar{X}, \bar{x}, \sigma^2, Var(X), S^2
+$$
+Stimatori e stime:
+$$
+\hat \theta,  \hat \mu, \hat \sigma^2, \hat \lambda 
+$$
+$$
+\tilde \theta, \tilde \mu, \tilde \sigma^2, \tilde \lambda
+$$
+Verosimiglianza:
+$$
+L(\theta), \ell(\theta), \ell'(\theta), \ell''(\theta)
+$$
+Frazioni:
+$$
+\frac{1}{\sqrt{2}} X_i, \frac{X_i}{Y_i}
+$$
+
+Sommatorie: 
+$$
+\sum_{i=1}^n X_i, \sum_{i=1}^n \log X_i, \sum_{i=1}^n \sqrt{X_i}, \sum_{i=1}^n \frac{X_i}{Y_i}
+$$
+Integrali:
+$$
+\int_{0}^1 f(x) dx, \int_{a}^{\infty} f(x) dx, \int_{-\infty}^{\infty} f(x) dx
+$$
+
+
+
+**Come scrivere i comandi R**
+
+```{r, error = TRUE}
+2 * 3 / log(1.2)
+sin(2 * pi / 20)
+a <- 2 * c(1, 2)
+a
+z <- qnorm(0.95)
+z
+t <- qt(0.95, df = 12)
+t
+
+```

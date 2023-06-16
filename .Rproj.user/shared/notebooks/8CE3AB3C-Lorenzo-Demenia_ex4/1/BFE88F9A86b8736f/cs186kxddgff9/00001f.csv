@@ -1,0 +1,1 @@
+"0","    curve(coef(mod2)[1] + coef(mod2)[2] * x + coef(mod2)[3] * x ^ 2, from = min(dataset$processi), to = max(dataset$processi), add = TRUE, col = ""green"")"

@@ -1,0 +1,2 @@
+"0","    mod2 <- lm(processi ~ dimensione , data = dataset, subset=-outliers) "
+"0","    plot(processi ~ dimensione , data=dataset, subset= -outliers)"

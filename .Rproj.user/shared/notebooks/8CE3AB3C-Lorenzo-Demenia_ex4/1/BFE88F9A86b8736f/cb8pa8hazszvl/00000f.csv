@@ -1,0 +1,2 @@
+"0","    mod_quad <- lm(processi ~ dimensione + I(dimensione ^ 2), data = dataset) "
+"0","    plot(processi ~ dimensione + I(dimensione ^ 2), data=dataset)"

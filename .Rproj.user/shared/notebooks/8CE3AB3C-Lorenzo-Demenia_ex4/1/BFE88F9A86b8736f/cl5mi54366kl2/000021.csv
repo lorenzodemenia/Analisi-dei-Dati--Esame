@@ -1,0 +1,2 @@
+"0","    par(mfrow = c(1,2))"
+"0","    plot(residuals(mod2) ~ dimensione[-outliers], data=dataset)"

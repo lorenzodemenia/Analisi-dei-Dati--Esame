@@ -8,8 +8,8 @@ output:
     number_sections: true
 ---
 ```{r setup, include=FALSE}
-  knitr::opts_chunk$set(echo = TRUE)
-  library(car)
+    knitr::opts_chunk$set(echo = TRUE)
+    library(car)
 ```
 
 Questo documento va caricato in Moodle come cognome-nome-esX.Rmd dove X è il numero dell'esercizio (1, 2, 3 o 4).
@@ -160,10 +160,10 @@ scrivere qui la soluzione del terzo quesito (sempre che ve ne siano tre, altrime
 
 ### Per l'asse x : 
   ```{r}
-      mod_logaritmica_x <- lm(log(processi) ~ dimensione, data = dataset) 
-      plot(log(processi) ~ dimensione, data=dataset)
-      abline(mod_logaritmica_x, col = "red")
-      summary(mod_logaritmica_x)
+    mod_logaritmica_x <- lm(log(processi) ~ dimensione, data = dataset) 
+    plot(log(processi) ~ dimensione, data=dataset)
+    abline(mod_logaritmica_x, col = "red")
+    summary(mod_logaritmica_x)
   ```
 - Analisi con i residui
 ```{r}
@@ -192,10 +192,10 @@ scrivere qui la soluzione del terzo quesito (sempre che ve ne siano tre, altrime
 ```
 ### Per l'asse y : 
   ```{r}
-      mod_logaritmica_y <- lm(processi ~ log(dimensione), data = dataset) 
-      plot(processi ~ log(dimensione), data=dataset)
-      abline(mod_logaritmica_y, col = "red")
-      summary(mod_logaritmica_y)
+    mod_logaritmica_y <- lm(processi ~ log(dimensione), data = dataset) 
+    plot(processi ~ log(dimensione), data=dataset)
+    abline(mod_logaritmica_y, col = "red")
+    summary(mod_logaritmica_y)
   ```
 - Analisi con i residui
 ```{r}
@@ -225,10 +225,10 @@ scrivere qui la soluzione del terzo quesito (sempre che ve ne siano tre, altrime
 
 ### Per entrambi gli assi: 
   ```{r}
-      mod_logaritmica <- lm(log(processi) ~ log(dimensione), data = dataset) 
-      plot(log(processi) ~ log(dimensione), data=dataset)
-      abline(mod_logaritmica, col = "red")
-      summary(mod_logaritmica)
+    mod_logaritmica <- lm(log(processi) ~ log(dimensione), data = dataset) 
+    plot(log(processi) ~ log(dimensione), data=dataset)
+    abline(mod_logaritmica, col = "red")
+    summary(mod_logaritmica)
   ```
 - Analisi con i residui
 ```{r}

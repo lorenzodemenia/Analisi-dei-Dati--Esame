@@ -1,0 +1,2 @@
+"0","    mod <- lm(processi ~ dimensione, data = dataset) "
+"0","    plot(processi ~ dimensione , data=dataset)"
